@@ -1,0 +1,66 @@
+@keyframes fadein{
+	from{
+		opacity:0;
+		transform:translateY(-100px);
+	}
+	to{
+		opacity:1;
+		transform:translateY(0);
+	}
+}
+.headline{
+    margin:auto;
+    max-width: 1280px;
+    color: #FFF;
+}
+.headline{
+    animation-duration:1s;
+    animation-name:fadein;
+}
+h1{
+    font-size:35px;
+    line-height:120px;
+    text-align:center;
+    max-width:1280px;
+    margin:82px auto 0 auto;
+    font-family:Century;
+}
+h2{
+    color:white;
+    background:#0a799a;
+    padding: 15px;
+    margin-bottom: 5px;
+    border-radius: 12px;
+    margin-top: 12px;
+    margin-top: 10px;
+    /* margin-right: 7px; */
+    /* margin-left: 7px; */
+}
+h3{
+    color:white;
+}
+
+.content{
+    border:3px solid #c3c3c3;
+    margin-top: 5px;
+    margin-right: 0px;
+    margin-left:0px;
+    margin-bottom: 29px;
+    padding: 20px;
+    background:white;
+    color:black;
+    border-radius:30px;
+    padding-bottom: 10px;
+}
+
+.content p{
+    border:2px solid #c3c3c3;
+    padding: 21px;
+    border-radius: 15px;
+}
+
+
+.image-display{
+    display:flex;
+    justify-content:space-around;
+}

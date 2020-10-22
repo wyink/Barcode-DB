@@ -1,0 +1,212 @@
+doctype html
+html(lang='ja')
+  head
+    meta(charset='utf-8')
+    title Barcode DB for plants identification
+    link(rel='stylesheet' href='/stylesheets/Common_header.css')
+    link(rel='stylesheet' href='/stylesheets/taxonomy.css')
+  body
+    header
+      .header-inner
+        .Logo Barcode DB
+        .header-item
+          nav.nav1
+            ul
+              li
+                a(href='/')   Top   
+              li
+                a(href='/download') DownLoad
+              li#now
+                a(href='#') Taxonomy
+              li
+                a(href='/help')   Help  
+    main
+      .headline
+        h1 Taxonomy
+        h3
+          | You can check what kind of species or genus are included in each DataBase, 
+          br
+          |  directly by watching the List or by searching them from the family List.
+      .section_wrap
+        section
+          .option
+            p.attention
+              | Please select one of the options.
+              | By default,Family list are shown below.
+            group
+              p.opt
+                input#box1(type='radio' name='cat' onchange="Listshow('first')" checked='checekd')
+                label.cate Family
+              p.opt
+                input#box2(type='radio' name='cat' onchange="Listshow('second')")
+                label.cate Genus
+              p.opt
+                input#box3(type='radio' name='cat' onchange="Listshow('third')")
+                label.cate Species
+          ul#ulaccordion.accordion.first
+            li.alpha
+              .wrap_header
+                p.header A
+                button(type='button' onclick="Jump('A')") Show the List
+            li.alpha
+              .wrap_header
+                p.header B
+                button(type='button' onclick="Jump('B')") Show the List
+            li.alpha
+              .wrap_header
+                p.header C
+                button(type='button' onclick="Jump('C')") Show the List
+            li.alpha
+              .wrap_header
+                p.header D
+                button(type='button' onclick="Jump('D')") Show the List
+            li.alpha
+              .wrap_header
+                p.header E
+                button(type='button' onclick="Jump('E')") Show the List
+            li.alpha
+              .wrap_header
+                p.header F
+                button(type='button' onclick="Jump('F')") Show the List
+            li.alpha
+              .wrap_header
+                p.header G
+                button(type='button' onclick="Jump('G')") Show the List
+            li.alpha
+              .wrap_header
+                p.header H
+                button(type='button' onclick="Jump('H')") Show the List
+            li.alpha
+              .wrap_header
+                p.header I
+                button(type='button' onclick="Jump('I')") Show the List
+            li.alpha
+              .wrap_header
+                p.header J
+                button(type='button' onclick="Jump('J')") Show the List
+            li.alpha
+              .wrap_header
+                p.header K
+                button(type='button' onclick="Jump('K')") Show the List
+            li.alpha
+              .wrap_header
+                p.header L
+                button(type='button' onclick="Jump('L')") Show the List
+            li.alpha
+              .wrap_header
+                p.header M
+                button(type='button' onclick="Jump('M')") Show the List
+            li.alpha
+              .wrap_header
+                p.header N
+                button(type='button' onclick="Jump('N')") Show the List
+            li.alpha
+              .wrap_header
+                p.header O
+                button(type='button' onclick="Jump('O')") Show the List
+            li.alpha
+              .wrap_header
+                p.header P
+                button(type='button' onclick="Jump('P')") Show the List
+            li.alpha
+              .wrap_header
+                p.header Q
+                button(type='button' onclick="Jump('Q')") Show the List
+            li.alpha
+              .wrap_header
+                p.header R
+                button(type='button' onclick="Jump('R')") Show the List
+            li.alpha
+              .wrap_header
+                p.header S
+                button(type='button' onclick="Jump('S')") Show the List
+            li.alpha
+              .wrap_header
+                p.header T
+                button(type='button' onclick="Jump('T')") Show the List
+            li.alpha
+              .wrap_header
+                p.header U
+                button(type='button' onclick="Jump('U')") Show the List
+            li.alpha
+              .wrap_header
+                p.header V
+                button(type='button' onclick="Jump('V')") Show the List
+            li.alpha
+              .wrap_header
+                p.header W
+                button(type='button' onclick="Jump('W')") Show the List
+            li.alpha
+              .wrap_header
+                p.header X
+                button(type='button' onclick="Jump('X')") Show the List
+            li.alpha
+              .wrap_header
+                p.header Y
+                button(type='button' onclick="Jump('Y')") Show the List
+            li.alpha
+              .wrap_header
+                p.header Z
+                button(type='button' onclick="Jump('Z')") Show the List
+            li.alpha
+              .wrap_header
+                p.header Other
+                button(type='button' onclick="Jump('Other')") Show the List
+            li.alpha
+    script.
+      buList = document.getElementsByTagName('button');
+      for(var k=0;k<buList.length;k++){
+      buList[k].addEventListener('mouseenter',function(){
+      color = this.style.backgroundColor;
+      temp="";	//initialize;
+      temp=color;
+      this.style.backgroundColor = '#ff8b5f';
+      this.style.boxShadow = '0 0px 2px #525f718c, 0 -4px 5px -2px #262c358f inset';
+      },false);
+      buList[k].addEventListener('mouseleave',function(){
+      this.style.backgroundColor = temp;
+      this.style.boxShadow = "";
+      },false);
+      }
+      function Listshow(acnum){
+      fade=document.getElementById('ulaccordion');
+      pa=fade.parentNode;
+      fade.classList.remove('first');
+      fade.classList.add('select_move');
+      fade.parentNode.removeChild(fade);
+      pa.appendChild(fade);
+      cL = document.getElementsByClassName('wrap_header');
+      //acnum = qw/ph ge sp/;
+      for(var i=0 ;i<cL.length ;i++){
+      if(acnum == 'first'){
+      cL[i].style.backgroundColor = '#a4d4c6';
+      cL[i].children[1].style.backgroundColor = '#149298';
+      }else if(acnum == 'second'){
+      cL[i].style.backgroundColor = '#149298';
+      cL[i].children[1].style.backgroundColor = 'orange';
+      }else if(acnum == 'third'){
+      cL[i].style.backgroundColor = '#0a799a';
+      cL[i].children[1].style.backgroundColor = '#FFC107';
+      }
+      }
+      };
+      function Jump(alp){
+      //which category one of three.;
+      rad = document.getElementsByName('cat');
+      for(var i=0;i<rad.length;i++){
+      if(rad[i].checked == true){
+      category = rad[i].nextElementSibling.innerHTML;
+      break;
+      }else{
+      //pass;
+      }
+      }
+      //alp is fallen into [A-Z]{1}/;
+      if(category == 'Family'){
+      location.href="Tax_fam/"+alp+".html";
+      }else if(category == 'Genus'){
+      location.href="Tax_ge/"+alp+".html";
+      }else if(category == 'Species'){
+      location.href="Tax_sp/"+alp+".html";
+      }
+      };
