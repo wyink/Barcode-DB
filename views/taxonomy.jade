@@ -1,3 +1,5 @@
+extends layout.jade
+
 doctype html
 html(lang='ja')
   head
@@ -6,7 +8,7 @@ html(lang='ja')
     link(rel='stylesheet' href='/stylesheets/Common_header.css')
     link(rel='stylesheet' href='/stylesheets/taxonomy.css')
   body
-    header
+    block header
       .header-inner
         .Logo Barcode DB
         .header-item
@@ -20,13 +22,15 @@ html(lang='ja')
                 a(href='#') Taxonomy
               li
                 a(href='/help')   Help  
-    main
+    block main
+      block headline
       .headline
         h1 Taxonomy
         h3
           | You can check what kind of species or genus are included in each DataBase, 
           br
           |  directly by watching the List or by searching them from the family List.
+      block section
       .section_wrap
         section
           .option
