@@ -1,296 +1,298 @@
-doctype html
-html(lang='ja')
-  head
-    meta(charset='utf-8')
-    title= title
-    link(rel='stylesheet' href='/stylesheets/Common_header.css')
-    link(rel='stylesheet' href='/stylesheets/web.css')
-    link(rel='stylesheet' href='/stylesheets/form.css')
-  body
-    header
-      .header-inner
-        .Logo Barcode DB
-        .header-item
-          nav.nav1
-            ul
-              li#now
-                a(href='/')   Top   
-              li
-                a(href='/download') DownLoad
-              li
-                a(href='/taxonomy') Taxonomy
-              li
-                a(href='/help')   Help  
-    .foot
-      .wrap
-        h1 What is Barcode DB?
-      .main_b_wrap
-        .explain
-          .exp_in
-            span.span_1 D
-            | NA barcoding is a method for species identification.
-            |                 	We offer some original curated Database for DNA barcoding.
-            br
-            | 					You can identify a sequence every one submit on this website.
-            |                 	In addition, we offer a tool for identifying large amount of sequences.
-            br
-          .appeal_wrap
+extends ./layout
+
+block append_header
+  link(rel='stylesheet' href='/stylesheets/web.css')
+  link(rel='stylesheet' href='/stylesheets/form.css')
+
+block headerContent
+  header
+    .header-inner
+      .Logo Barcode DB
+      .header-item
+        nav.nav1
+          ul
+            li#now
+              a(href='/')   Top   
+            li
+              a(href='/download') DownLoad
+            li
+              a(href='/taxonomy') Taxonomy
+            li
+              a(href='/help')   Help  
+  .foot
+    .wrap
+      h1 What is Barcode DB?
+    .main_b_wrap
+      .explain
+        .exp_in
+          span.span_1 D
+          | NA barcoding is a method for species identification.
+          |                 	We offer some original curated Database for DNA barcoding.
+          br
+          | 					You can identify a sequence every one submit on this website.
+          |                 	In addition, we offer a tool for identifying large amount of sequences.
+          br
+        .appeal_wrap
+          div
+            a#skip(onclick='Onskip();')
+              | Identify
+              p Run on this website
+          div
+            a(onclick='Onskip_2();')
+              | Curated Database
+              p Show details
+          div
+            a
+              | Identify
+              p
+                | Run with a pipeline tool
+                br
+                | (Under construction)
+
+block main
+  main#identification
+    .form
+      h2#a01.middle Identification
+      form#form1
+        h3.db_nav
+          span.num 1.
+          |  Select the database
+        .data_wrap
+          .op_gene Select the gene you have.
+          group.f_radio
+            .f_option
+              input#f1_a.fra(type='radio' name='gene' checked='checked' onchange='Radiochange();')
+              label.fla rbcL
+            .f_option
+              input#f1_b.fra(type='radio' name='gene' onchange='Radiochange();')
+              label.fla matK
+            p#r1 ribulose 1,5-bisphosphatecarboxylase/oxygenase large subunit
+          .op_db Select the database you want submit to.
+          group.f_radio
+            .f_option
+              input#f2_a.fra(type='radio' name='data' checked='checked' onchange='Radiochange();')
+              label.fla Curated
+            .f_option
+              input#f2_b.fra(type='radio' name='data' onchange='Radiochange();')
+              label.fla ALL
+            p#r2 The Database curated by conserved domain/featues site
+      form#cgi(action='../cgi-bin/bar_submit.cgi' method='post' onsubmit='return check()')
+        .sewrap
+          label.Query_label(for='Query')
+            span.num 2.
+            |  Enter a sequence in fasta fomat
+          .thrbtn
             div
-              a#skip(onclick='Onskip();')
-                | Identify
-                p Run on this website
+              input(type='radio' name='sa' value='0' onclick='sample(1)')
+              | clear the text
             div
-              a(onclick='Onskip_2();')
-                | Curated Database
-                p Show details
+              input(type='radio' name='sa' value='1' checked='checked' onclick='sample(2)')
+              | rbcL sample
             div
-              a
-                | Identify
-                p
-                  | Run with a pipeline tool
-                  br
-                  | (Under construction)
-      main#identification
-        .form
-          h2#a01.middle Identification
-          form#form1
-            h3.db_nav
-              span.num 1.
-              |  Select the database
-            .data_wrap
-              .op_gene Select the gene you have.
-              group.f_radio
-                .f_option
-                  input#f1_a.fra(type='radio' name='gene' checked='checked' onchange='Radiochange();')
-                  label.fla rbcL
-                .f_option
-                  input#f1_b.fra(type='radio' name='gene' onchange='Radiochange();')
-                  label.fla matK
-                p#r1 ribulose 1,5-bisphosphatecarboxylase/oxygenase large subunit
-              .op_db Select the database you want submit to.
-              group.f_radio
-                .f_option
-                  input#f2_a.fra(type='radio' name='data' checked='checked' onchange='Radiochange();')
-                  label.fla Curated
-                .f_option
-                  input#f2_b.fra(type='radio' name='data' onchange='Radiochange();')
-                  label.fla ALL
-                p#r2 The Database curated by conserved domain/featues site
-          form#cgi(action='../cgi-bin/bar_submit.cgi' method='post' onsubmit='return check()')
-            .sewrap
-              label.Query_label(for='Query')
-                span.num 2.
-                |  Enter a sequence in fasta fomat
-              .thrbtn
-                div
-                  input(type='radio' name='sa' value='0' onclick='sample(1)')
-                  | clear the text
-                div
-                  input(type='radio' name='sa' value='1' checked='checked' onclick='sample(2)')
-                  | rbcL sample
-                div
-                  input(type='radio' name='sa' value='2' onclick='sample(3)')
-                  | matK sample
-            // maxlength_non_javascript
-            textarea#query(name='query' maxlength='2000' oninput='gosubmit()')
-              | >sample(default --rbcL--)
-              | atgtcaccacaaacagagactaaagcaagtgttggattcaaagctggtgttaaagaatacaaattgacttattatactcctgactatgaaccccatgaccatgatatcttggcagcatttcgagtaactcctcaacctggagttccaccagaagaagcaggggctgcggtagctgccgaatcttctactggtacatggacaactgtgtggaccgatggacttaccagccttgatcgttacaaaggacgatgctaccacatcgagcctgttcctggcgaagaa
-            input#sbm(type='submit' value='Submit')
-      #jumpFromHelp.curated
-        h2.middle.adj1 About the curated database
-        nav.parent_nav
-          li 1. source
-          li 2. How to curate a number of sequences
-          nav.child_nav
-            li  (ⅰ) rbcL
-            li  (ⅱ) matK
-          li 3. The advantage of the database
-        .1_wrap
-          h3.n_1 1.source
-          p.n_1_c
-            | The original source of all of the sequences and the taxonomic infomation included in this database is National Center for Biotechnology information (NCBI).
-            | You can download them from the URL / ( 
+              input(type='radio' name='sa' value='2' onclick='sample(3)')
+              | matK sample
+        // maxlength_non_javascript
+        textarea#query(name='query' maxlength='2000' oninput='gosubmit()')
+          | >sample(default --rbcL--)
+          | atgtcaccacaaacagagactaaagcaagtgttggattcaaagctggtgttaaagaatacaaattgacttattatactcctgactatgaaccccatgaccatgatatcttggcagcatttcgagtaactcctcaacctggagttccaccagaagaagcaggggctgcggtagctgccgaatcttctactggtacatggacaactgtgtggaccgatggacttaccagccttgatcgttacaaaggacgatgctaccacatcgagcctgttcctggcgaagaa
+        input#sbm(type='submit' value='Submit')
+  #jumpFromHelp.curated
+    h2.middle.adj1 About the curated database
+    nav.parent_nav
+      li 1. source
+      li 2. How to curate a number of sequences
+      nav.child_nav
+        li  (ⅰ) rbcL
+        li  (ⅱ) matK
+      li 3. The advantage of the database
+    .1_wrap
+      h3.n_1 1.source
+      p.n_1_c
+        | The original source of all of the sequences and the taxonomic infomation included in this database is National Center for Biotechnology information (NCBI).
+        | You can download them from the URL / ( 
+        a(href='ftp://ftp.ncbi.nlm.nih.gov/genbank/') ftp://ftp.ncbi.nlm.nih.gov/genbank/
+        |  ). And we also use Basic Local Alignment Search Tool (BLAST). You can also download
+        |         					   the application from the URL / ( 
+        a(href='ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/')
+          span.break ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/
+        |  ).
+    .2_wrap
+      h3.n_2 2.How to curate a number of sequences
+      .rb_wrap
+        h4 2-ⅰrbcL
+        p
+          | First,we collected reference sequences (RefSeq) recorded about protein in plastid, which are provided as the Genbank Flat File Format
+          span.break
+            a(href='ftp://ftp.ncbi.nlm.nih.gov/refseq/release/plastid/') ftp://ftp.ncbi.nlm.nih.gov/refseq/release/plastid/
+            | .
+          |         			   RefSeq collection is a comprehensive, integrated, non-redundant, well-annotated set of sequences,so the dataset has the small amount of sequences with high accuracy. 
+          |         			   The number of sequences is not enough to identify plant species accurately. For that reason, from the document, we just only abstract the location and some of the
+          |         			   amino acid patterns ( 
+          sup *1
+          span.sup  conserved features
+          |         			   of 
+          sup *2
+          span.sup  RuBisCo_large_I
+          |  ).That has five conserved features: active site,metal binding, 
+          |         			   catalytic,homodimer,heterodimer, but this time, active site,metal binding,catalytic were used to construct the main curated database to collect as many sequences as
+          |         			   possible. The reason is all of the redundant sequences don't always have all the conserved features. The more accurately you want, the less sequences you can collect.That  
+          |         			   leads reducing the accuracy of identification, but to those who need that, we also offer the curated database. 
+          |         			   Second, we also collected all of the plant sequences from the URL / 
+          span.break
             a(href='ftp://ftp.ncbi.nlm.nih.gov/genbank/') ftp://ftp.ncbi.nlm.nih.gov/genbank/
-            |  ). And we also use Basic Local Alignment Search Tool (BLAST). You can also download
-            |         					   the application from the URL / ( 
-            a(href='ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/')
-              span.break ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/
-            |  ).
-        .2_wrap
-          h3.n_2 2.How to curate a number of sequences
-          .rb_wrap
-            h4 2-ⅰrbcL
-            p
-              | First,we collected reference sequences (RefSeq) recorded about protein in plastid, which are provided as the Genbank Flat File Format
-              span.break
-                a(href='ftp://ftp.ncbi.nlm.nih.gov/refseq/release/plastid/') ftp://ftp.ncbi.nlm.nih.gov/refseq/release/plastid/
-                | .
-              |         			   RefSeq collection is a comprehensive, integrated, non-redundant, well-annotated set of sequences,so the dataset has the small amount of sequences with high accuracy. 
-              |         			   The number of sequences is not enough to identify plant species accurately. For that reason, from the document, we just only abstract the location and some of the
-              |         			   amino acid patterns ( 
-              sup *1
-              span.sup  conserved features
-              |         			   of 
-              sup *2
-              span.sup  RuBisCo_large_I
-              |  ).That has five conserved features: active site,metal binding, 
-              |         			   catalytic,homodimer,heterodimer, but this time, active site,metal binding,catalytic were used to construct the main curated database to collect as many sequences as
-              |         			   possible. The reason is all of the redundant sequences don't always have all the conserved features. The more accurately you want, the less sequences you can collect.That  
-              |         			   leads reducing the accuracy of identification, but to those who need that, we also offer the curated database. 
-              |         			   Second, we also collected all of the plant sequences from the URL / 
-              span.break
-                a(href='ftp://ftp.ncbi.nlm.nih.gov/genbank/') ftp://ftp.ncbi.nlm.nih.gov/genbank/
-              | .
-              |         			   These data are redundant and also provided as a genbank format file. Third, after abstracting sequences recorded as rbcL gene, we selected all of them that has
-              |         			   the previously mentioned patterns.Finally, we cut off each sequence according to the both ends of the conserved features.
-            p.sup_title
-              small
-                sup *1
-                |  Conserved domain/features:
-            p.sup_content
-              small
-                | the features conserved in the domain family such as catalytic residues, binding sites, or motifs. 
-                | if you want to learn more about conserved features/sites, please check
-                | the URL / 
-                span.break
-                  a(href='https://www.ncbi.nlm.nih.gov/Structure/cdd/cdd_help.shtml#ConservedFeatures') https://www.ncbi.nlm.nih.gov/Structure/cdd/cdd_help.shtml
-            p
-            p.sup_title
-              small
-                sup *2
-                |  RuBisCo_large_I
-            p.sup_content
-              a(href='https://www.ncbi.nlm.nih.gov/Structure/cdd/cddsrv.cgi?uid=cd08212') cd08212
-              | : Ribulose bisphosphate carboxylase large chain,Form I
-          .ma_wrap
-            h4 2-(ⅱ)matK
-            p
-              | The way to curate the sequences encoding maturaseK is the same in the middle of 2-(i) rbcL. After we collected Refseq recorded
-              | about protein in plastid, we abstract the location and some of the amino acid patterns. Unlike RuBisCo_large_I , Maturase K has 
-              | two conserved domain: MatK_N (CDD:
-              a(href='https://www.ncbi.nlm.nih.gov/Structure/cdd/cddsrv.cgi?uid=280070') 280070
-              | ), 
-              |         			Intron_maturas2 (CDD:
-              a(href='https://www.ncbi.nlm.nih.gov/Structure/cdd/cddsrv.cgi?uid=279664') 279664
-              | ).
-              |         			After that,we cut off each sequence according to the both ends of the conserved domain.
-        .wrap3
-          h3.n_2 3.The advantage of database
-          p
-            | 1.This Database reduces False Negative.
-            | Conventional databases have completely different sequenences in terms of lengths.
-            | This point leads False Negative(FN) result when you identify species with a local alignment search tool like BLAST.
-            | The figure below explains how FN arises mentioned above.
-          .imgwrapper
-            p
-              img(src='/images/adv1.png' alt='Conventional Database')
-            p
-              img(src='/images/adv2.png' alt='Our Database')
-          p
-            | 2.It provides few error for you when you analyze similarity between base sequences.
-            | -For example, when you align sequences and draw phylogenetic tree,you need accurate
-            | sequences. That is simply because its way calculate a result with the difference between
-            | sequences. In other words, different length of each sequences leads wrong answer. All
-            | sequences in this database have almost all the same length, so you don't have to care this point
-            | if you use this database.
-      script(type='text/javascript').
-        function check(){
-        te_wo = document.getElementById("query").value;
-        count = document.getElementById("query").value.length;
-        /*It'll return false when the length of the seq is more than 2000*/
-        if(count > 2000){
-        alert("too many bases");
-        return false;
-        }else if(count == 0){
-        alert("Please enter fasta sequence");
-        return false;
-        }
-        /*multi_sequence*/
-        te_wo = te_wo.replace(/\\r?\n/g,'');
-        ma=te_wo.match(/^.*>.*>.*$/);
-        if(ma){
-        alert("Please put one sequence at one time");
-        return false;
-        }
-        rad=Radiochange();
-        cr=document.getElementById('cgi');
-        div=document.createElement('input');
-        cr.appendChild(div);
-        div.name = rad[0];
-        div.value = rad[1];
-        /*return true*/
-        }
-        function Radiochange(){
-        var up_1=document.getElementById('f1_a');
-        var bo_1=document.getElementById('f2_a');
-        ge="";array=[];
-        db="";
-        if(up_1.checked == true){
-        document.getElementById('r1').innerHTML = 'ribulose 1,5-bisphosphatecarboxylase/oxygenase large subunit';
-        ge='rbcL';
-        }else{
-        document.getElementById('r1').innerHTML = 'the trnK tRNA gene intron. Type2 intron maturase';
-        ge='matK';
-        }
-        if(bo_1.checked == true){
-        document.getElementById('r2').innerHTML = 'The Database curated by conserved domain/featues site';
-        db='curated'
-        }else{
-        document.getElementById('r2').innerHTML = 'The redundant Database.';
-        db='ALL';
-        }
-        array=[ge,db]
-        return array;
-        };
-        function gosubmit(){
-        ex_check = document.getElementById('query');
-        btn_submit = ex_check.nextElementSibling
-        if(ex_check.value == ''){
-        btn_submit.style.backgroundColor = '#2c92bb';
-        btn_submit.style.borderColor = 'buttonface';
-        }else{
-        btn_submit.style.backgroundColor = '#ff6707';
-        btn_submit.style.borderColor = '#ffc107';
-        }
-        };
-        /* element-height; */
-        function Onskip(){
-        fi = document.getElementsByClassName('wrap');
-        fih = fi[0].clientHeight;
-        se = document.getElementsByClassName('main_b_wrap');
-        seh = se[0].clientHeight;
-        window.scrollTo(0,fih+seh);
-        }
-        function Onskip_2(){
-        fi = document.getElementsByClassName('wrap');
-        fih = fi[0].clientHeight;
-        se = document.getElementsByClassName('main_b_wrap');
-        seh = se[0].clientHeight;
-        th= document.getElementById('identification');
-        thh=th.clientHeight;
-        window.scrollTo(0,fih+seh+thh+100);
-        }
-        function sample(num){
-        a = document.getElementsByClassName('thrbtn');
-        textarea = document.getElementById('query');
-        cl=a[0].children[0].style;
-        rb=a[0].children[1].style;
-        ma=a[0].children[2].style;
-        c1='#367a8e'; c2='white';
-        if(num==1){
-        textarea.value = '';
-        cl.backgroundColor = c1;	cl.color = c2;
-        rb.backgroundColor = c2;	rb.color = c1;
-        ma.backgroundColor = c2;	ma.color = c1;
-        }else if(num==3){
-        textarea.value = ">sample(default --matK-- )\\natgtatcaacagagttatttgattaattcgtttaatgattctaatccaaatcgatttgttggacacagcaatcataatcatcatttttctcaaatgatatcagggggttttgcagttattgtagaaattcctttctccctgccattttttcttgaagaaaaaaaagaaatacaaaaatatcagaatttacaatccattcattcgatattcccttttttagaggacaaattttcacatttaaattatgtgtcagatatagtaataccctatcctattcatctt";
-        cl.backgroundColor = c2;	cl.color = c1;
-        rb.backgroundColor = c2;	rb.color = c1;
-        ma.backgroundColor = c1;	ma.color = c2;
-        }else{
-        textarea.value = ">sample(default --rbcL-- )\\natgtcaccacaaacagagactaaagcaagtgttggattcaaagctggtgttaaagaatacaaattgacttattatactcctgactatgaaccccatgaccatgatatcttggcagcatttcgagtaactcctcaacctggagttccaccagaagaagcaggggctgcggtagctgccgaatcttctactggtacatggacaactgtgtggaccgatggacttaccagccttgatcgttacaaaggacgatgctaccacatcgagcctgttcctggcgaagaa";
-        cl.backgroundColor = c2;	cl.color = c1;
-        rb.backgroundColor = c1;	rb.color = c2;
-        ma.backgroundColor = c2;	ma.color = c1;
-        };
-        }
+          | .
+          |         			   These data are redundant and also provided as a genbank format file. Third, after abstracting sequences recorded as rbcL gene, we selected all of them that has
+          |         			   the previously mentioned patterns.Finally, we cut off each sequence according to the both ends of the conserved features.
+        p.sup_title
+          small
+            sup *1
+            |  Conserved domain/features:
+        p.sup_content
+          small
+            | the features conserved in the domain family such as catalytic residues, binding sites, or motifs. 
+            | if you want to learn more about conserved features/sites, please check
+            | the URL / 
+            span.break
+              a(href='https://www.ncbi.nlm.nih.gov/Structure/cdd/cdd_help.shtml#ConservedFeatures') https://www.ncbi.nlm.nih.gov/Structure/cdd/cdd_help.shtml
+        p
+        p.sup_title
+          small
+            sup *2
+            |  RuBisCo_large_I
+        p.sup_content
+          a(href='https://www.ncbi.nlm.nih.gov/Structure/cdd/cddsrv.cgi?uid=cd08212') cd08212
+          | : Ribulose bisphosphate carboxylase large chain,Form I
+      .ma_wrap
+        h4 2-(ⅱ)matK
+        p
+          | The way to curate the sequences encoding maturaseK is the same in the middle of 2-(i) rbcL. After we collected Refseq recorded
+          | about protein in plastid, we abstract the location and some of the amino acid patterns. Unlike RuBisCo_large_I , Maturase K has 
+          | two conserved domain: MatK_N (CDD:
+          a(href='https://www.ncbi.nlm.nih.gov/Structure/cdd/cddsrv.cgi?uid=280070') 280070
+          | ), 
+          |         			Intron_maturas2 (CDD:
+          a(href='https://www.ncbi.nlm.nih.gov/Structure/cdd/cddsrv.cgi?uid=279664') 279664
+          | ).
+          |         			After that,we cut off each sequence according to the both ends of the conserved domain.
+    .wrap3
+      h3.n_2 3.The advantage of database
+      p
+        | 1.This Database reduces False Negative.
+        | Conventional databases have completely different sequenences in terms of lengths.
+        | This point leads False Negative(FN) result when you identify species with a local alignment search tool like BLAST.
+        | The figure below explains how FN arises mentioned above.
+      .imgwrapper
+        p
+          img(src='/images/adv1.png' alt='Conventional Database')
+        p
+          img(src='/images/adv2.png' alt='Our Database')
+      p
+        | 2.It provides few error for you when you analyze similarity between base sequences.
+        | -For example, when you align sequences and draw phylogenetic tree,you need accurate
+        | sequences. That is simply because its way calculate a result with the difference between
+        | sequences. In other words, different length of each sequences leads wrong answer. All
+        | sequences in this database have almost all the same length, so you don't have to care this point
+        | if you use this database.
+
+block script
+  script(type='text/javascript').
+    function check(){
+    te_wo = document.getElementById("query").value;
+    count = document.getElementById("query").value.length;
+    /*It'll return false when the length of the seq is more than 2000*/
+    if(count > 2000){
+    alert("too many bases");
+    return false;
+    }else if(count == 0){
+    alert("Please enter fasta sequence");
+    return false;
+    }
+    /*multi_sequence*/
+    te_wo = te_wo.replace(/\\r?\n/g,'');
+    ma=te_wo.match(/^.*>.*>.*$/);
+    if(ma){
+    alert("Please put one sequence at one time");
+    return false;
+    }
+    rad=Radiochange();
+    cr=document.getElementById('cgi');
+    div=document.createElement('input');
+    cr.appendChild(div);
+    div.name = rad[0];
+    div.value = rad[1];
+    /*return true*/
+    }
+    function Radiochange(){
+    var up_1=document.getElementById('f1_a');
+    var bo_1=document.getElementById('f2_a');
+    ge="";array=[];
+    db="";
+    if(up_1.checked == true){
+    document.getElementById('r1').innerHTML = 'ribulose 1,5-bisphosphatecarboxylase/oxygenase large subunit';
+    ge='rbcL';
+    }else{
+    document.getElementById('r1').innerHTML = 'the trnK tRNA gene intron. Type2 intron maturase';
+    ge='matK';
+    }
+    if(bo_1.checked == true){
+    document.getElementById('r2').innerHTML = 'The Database curated by conserved domain/featues site';
+    db='curated'
+    }else{
+    document.getElementById('r2').innerHTML = 'The redundant Database.';
+    db='ALL';
+    }
+    array=[ge,db]
+    return array;
+    };
+    function gosubmit(){
+    ex_check = document.getElementById('query');
+    btn_submit = ex_check.nextElementSibling
+    if(ex_check.value == ''){
+    btn_submit.style.backgroundColor = '#2c92bb';
+    btn_submit.style.borderColor = 'buttonface';
+    }else{
+    btn_submit.style.backgroundColor = '#ff6707';
+    btn_submit.style.borderColor = '#ffc107';
+    }
+    };
+    /* element-height; */
+    function Onskip(){
+    fi = document.getElementsByClassName('wrap');
+    fih = fi[0].clientHeight;
+    se = document.getElementsByClassName('main_b_wrap');
+    seh = se[0].clientHeight;
+    window.scrollTo(0,fih+seh);
+    }
+    function Onskip_2(){
+    fi = document.getElementsByClassName('wrap');
+    fih = fi[0].clientHeight;
+    se = document.getElementsByClassName('main_b_wrap');
+    seh = se[0].clientHeight;
+    th= document.getElementById('identification');
+    thh=th.clientHeight;
+    window.scrollTo(0,fih+seh+thh+100);
+    }
+    function sample(num){
+    a = document.getElementsByClassName('thrbtn');
+    textarea = document.getElementById('query');
+    cl=a[0].children[0].style;
+    rb=a[0].children[1].style;
+    ma=a[0].children[2].style;
+    c1='#367a8e'; c2='white';
+    if(num==1){
+    textarea.value = '';
+    cl.backgroundColor = c1;	cl.color = c2;
+    rb.backgroundColor = c2;	rb.color = c1;
+    ma.backgroundColor = c2;	ma.color = c1;
+    }else if(num==3){
+    textarea.value = ">sample(default --matK-- )\\natgtatcaacagagttatttgattaattcgtttaatgattctaatccaaatcgatttgttggacacagcaatcataatcatcatttttctcaaatgatatcagggggttttgcagttattgtagaaattcctttctccctgccattttttcttgaagaaaaaaaagaaatacaaaaatatcagaatttacaatccattcattcgatattcccttttttagaggacaaattttcacatttaaattatgtgtcagatatagtaataccctatcctattcatctt";
+    cl.backgroundColor = c2;	cl.color = c1;
+    rb.backgroundColor = c2;	rb.color = c1;
+    ma.backgroundColor = c1;	ma.color = c2;
+    }else{
+    textarea.value = ">sample(default --rbcL-- )\\natgtcaccacaaacagagactaaagcaagtgttggattcaaagctggtgttaaagaatacaaattgacttattatactcctgactatgaaccccatgaccatgatatcttggcagcatttcgagtaactcctcaacctggagttccaccagaagaagcaggggctgcggtagctgccgaatcttctactggtacatggacaactgtgtggaccgatggacttaccagccttgatcgttacaaaggacgatgctaccacatcgagcctgttcctggcgaagaa";
+    cl.backgroundColor = c2;	cl.color = c1;
+    rb.backgroundColor = c1;	rb.color = c2;
+    ma.backgroundColor = c2;	ma.color = c1;
+    };
+    }

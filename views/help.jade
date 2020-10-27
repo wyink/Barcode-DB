@@ -1,50 +1,50 @@
-doctype html
-html(lang='ja')
-  head
-    meta(charset='utf-8')
-    title Barcode DB for plants identification
-    link(rel='stylesheet' href='/stylesheets/Common_header.css')
-    link(rel='stylesheet' href='/stylesheets/help.css')
-  body
-    header
-      .header-inner
-        .Logo Barcode DB
-        .header-item
-          nav.nav1
-            ul
-              li
-                a(href='/')   Top   
-              li
-                a(href='/download') DownLoad
-              li
-                a(href='/taxonomy') Taxonomy
-              li#now
-                a(href='#')   Help  
-    main
-      .headline
-        h1 Read Me
-        .content
-          h2 このウェブサイトについて
-          p
-            | 今回作成したウェブサイトの目的は以下に示す一連の流れをボタン一つで簡単に行うサービスである．
-            | ユーザーが研究・解析などによって得た遺伝子配列がどの種の配列に最も似ているかを探索する．
-          div
-            h2 このアプリケーションの仕組み
-            p.image-display
-              img(src='/images/architecture.png' alt='このアプリケーションの仕組み')
-        .content
-          h2 他ウェブサービスとの違い
-          p
-            | 作成したウェブサービスは，ユーザーから受け取った配列を検索にかけるデータの選別及び処理にこだわっている.
-            | 検索対象のデータは多ければ多いほど良いわけでは無く，その分不正確なデータや欠損データ，及び検索アルゴリズム
-            | の特性からはじかれるデータが増加する．このような利用者からは見えにくい潜在的なエラーを減らすことを目的とした
-            | データセットを検索対象のデータとして利用している．しかし，従来のデータセットも使用可能である．
-        .content
-          h2 ターゲットユーザー
-          p
-            | このウェブサービスは特定の遺伝子を利用して種の判別を行いたい利用者に向いている．
-            | 特に正解の種が検索結果に出来るだけ含まれるような検索を行いたい場合に有利である．
-            | このウェブサイトで公開しているデータの詳細は
-            a(href='/') トップページ
-            | を参照されたい．
-      .section_wrap
+extends ./layout
+
+block append_header
+  link(rel='stylesheet' href='/stylesheets/help.css')
+
+block headerContent
+  header
+    .header-inner
+      .Logo Barcode DB
+      .header-item
+        nav.nav1
+          ul
+            li
+              a(href='/')   Top   
+            li
+              a(href='/download') DownLoad
+            li
+              a(href='/taxonomy') Taxonomy
+            li#now
+              a(href='#')   Help  
+
+block main
+  main
+    .headline
+      h1 Read Me
+      .content
+        h2 このウェブサイトについて
+        p
+          | 今回作成したウェブサイトの目的は以下に示す一連の流れをボタン一つで簡単に行うサービスである．
+          | ユーザーが研究・解析などによって得た遺伝子配列がどの種の配列に最も似ているかを探索する．
+        div
+          h2 このアプリケーションの仕組み
+          p.image-display
+            img(src='/images/architecture.png' alt='このアプリケーションの仕組み')
+      .content
+        h2 他ウェブサービスとの違い
+        p
+          | 作成したウェブサービスは，ユーザーから受け取った配列を検索にかけるデータの選別及び処理にこだわっている.
+          | 検索対象のデータは多ければ多いほど良いわけでは無く，その分不正確なデータや欠損データ，及び検索アルゴリズム
+          | の特性からはじかれるデータが増加する．このような利用者からは見えにくい潜在的なエラーを減らすことを目的とした
+          | データセットを検索対象のデータとして利用している．しかし，従来のデータセットも使用可能である．
+      .content
+        h2 ターゲットユーザー
+        p
+          | このウェブサービスは特定の遺伝子を利用して種の判別を行いたい利用者に向いている．
+          | 特に正解の種が検索結果に出来るだけ含まれるような検索を行いたい場合に有利である．
+          | このウェブサイトで公開しているデータの詳細は
+          a(href='/') トップページ
+          | を参照されたい．
+    .section_wrap

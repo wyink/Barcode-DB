@@ -1,112 +1,112 @@
-doctype html
-html(lang='ja')
-  head
-    meta(charset='utf-8')
-    title Barcode DB for plants identification
-    link(rel='stylesheet' href='/stylesheets/Common_header.css')
-    link(rel='stylesheet' href='/stylesheets/download.css')
-  body
-    header
-      .header-inner
-        .Logo Barcode DB
-        .header-item
-          nav.nav1
-            ul
-              li
-                a(href='/')   Top   
-              li#now
-                a(href='#') DownLoad
-              li
-                a(href='/taxonomy') Taxonomy
-              li
-                a(href='/help')   Help  
-    h1(style='font-family:Century') DownLoad
-    main
-      .main
-        .main_wrapper
-          h2
-            | rbcL 
-            span.rbcL
-              br
-              | (ribulose 1,5-bisphosphatecarboxylase/oxygenase large subunit)
-          .table_wrap
-            .tit1
-              table
-                caption Viridiplantae
-                tbody
-                  tr.head
-                    th Database
-                    th Total sequences
-                    th Download
-                    th Download
-                    th Last Update
-                  tr
-                    th ALL (redundant)
-                    td 167,033
-                    td.DL_fasta
-                      a(href='gz_fasta/ALL_Viridiplantae.zip') FASTA
-                    td.DL_tax
-                      a(href='gz_taxidList/All_Viridiplantae_taxidList.zip') Taxonomy List
-                    td 2019/9/16
-                  tr
-                    th
-                      | Curated DB (
-                      span  5 
-                      | sites)
-                    td 33,602
-                    td.DL_fasta
-                      a(href='gz_fasta/Viridiplantae_5sites.zip') FASTA
-                    td.DL_tax
-                      a(href='gz_taxidList/Viridiplantae_5sites_taxidList.zip') Taxonomy List
-                    td 2019/9/16
-                  tr
-                    th
-                      | Curated DB (
-                      span  3 
-                      | sites)
-                    td 12,785
-                    td.DL_fasta
-                      a(href='gz_fasta/Viridiplantae_3sites.zip') FASTA
-                    td.DL_tax
-                      a(href='gz_taxidList/Viridiplantae_3sites_taxidList.zip') Taxonomy List
-                    td 2019/9/16
-            .tit2
-              table
-                caption Others
-                tbody
-                  tr.head
-                    th Database
-                    th Total sequences
-                    th Download
-                    th Download
-                    th Last Update
-                  tr
-                    th ALL (redundant)
-                    td 23,008
-                    td.DL_fasta
-                      a(href='gz_fasta/ALL_Other.zip') FASTA
-                    td.DL_tax
-                      a(href='gz_taxidList/All_Other_taxidList.zip') Taxonomy List
-                    td 2019/9/16
-                  tr
-                    th
-                      | Curated DB (
-                      span  5 
-                      | sites)
-                    td 6,769
-                    td.DL_fasta
-                      a(href='gz_fasta/Other_5sites.zip') FASTA
-                    td.DL_tax
-                      a(href='gz_taxidList/Other_5sites_taxidList.zip') Taxonomy List
-                    td 2019/9/16
-                  tr
-                    th
-                      | Curated DB (
-                      span  3 
-                      | sites)
-                    td 3,737
-                    td.DL_fasta
-                      a(href='gz_fasta/Other_3sites.zip') FASTA
-                    td.DL_tax
-                      a(href='gz_taxidList/Other_3sites_taxidList.zip') Taxonomy List
-                    td 2019/9/16
+extends ./layout
+
+block append_header
+  link(rel='stylesheet' href='/stylesheets/download.css')
+
+block headerContent
+  header
+    .header-inner
+      .Logo Barcode DB
+      .header-item
+        nav.nav1
+          ul
+            li
+              a(href='/')   Top   
+            li#now
+              a(href='#') DownLoad
+            li
+              a(href='/taxonomy') Taxonomy
+            li
+              a(href='/help')   Help  
+  h1(style='font-family:Century') DownLoad
+    
+block main
+  main
+    .main
+      .main_wrapper
+        h2
+          | rbcL 
+          span.rbcL
+            br
+            | (ribulose 1,5-bisphosphatecarboxylase/oxygenase large subunit)
+        .table_wrap
+          .tit1
+            table
+              caption Viridiplantae
+              tbody
+                tr.head
+                  th Database
+                  th Total sequences
+                  th Download
+                  th Download
+                  th Last Update
+                tr
+                  th ALL (redundant)
+                  td 167,033
+                  td.DL_fasta
+                    a(href='gz_fasta/ALL_Viridiplantae.zip') FASTA
+                  td.DL_tax
+                    a(href='gz_taxidList/All_Viridiplantae_taxidList.zip') Taxonomy List
+                  td 2019/9/16
+                tr
+                  th
+                    | Curated DB (
+                    span  5 
+                    | sites)
+                  td 33,602
+                  td.DL_fasta
+                    a(href='gz_fasta/Viridiplantae_5sites.zip') FASTA
+                  td.DL_tax
+                    a(href='gz_taxidList/Viridiplantae_5sites_taxidList.zip') Taxonomy List
+                  td 2019/9/16
+                tr
+                  th
+                    | Curated DB (
+                    span  3 
+                    | sites)
+                  td 12,785
+                  td.DL_fasta
+                    a(href='gz_fasta/Viridiplantae_3sites.zip') FASTA
+                  td.DL_tax
+                    a(href='gz_taxidList/Viridiplantae_3sites_taxidList.zip') Taxonomy List
+                  td 2019/9/16
+          .tit2
+            table
+              caption Others
+              tbody
+                tr.head
+                  th Database
+                  th Total sequences
+                  th Download
+                  th Download
+                  th Last Update
+                tr
+                  th ALL (redundant)
+                  td 23,008
+                  td.DL_fasta
+                    a(href='gz_fasta/ALL_Other.zip') FASTA
+                  td.DL_tax
+                    a(href='gz_taxidList/All_Other_taxidList.zip') Taxonomy List
+                  td 2019/9/16
+                tr
+                  th
+                    | Curated DB (
+                    span  5 
+                    | sites)
+                  td 6,769
+                  td.DL_fasta
+                    a(href='gz_fasta/Other_5sites.zip') FASTA
+                  td.DL_tax
+                    a(href='gz_taxidList/Other_5sites_taxidList.zip') Taxonomy List
+                  td 2019/9/16
+                tr
+                  th
+                    | Curated DB (
+                    span  3 
+                    | sites)
+                  td 3,737
+                  td.DL_fasta
+                    a(href='gz_fasta/Other_3sites.zip') FASTA
+                  td.DL_tax
+                    a(href='gz_taxidList/Other_3sites_taxidList.zip') Taxonomy List
+                  td 2019/9/16
