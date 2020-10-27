@@ -76,22 +76,21 @@ block main
               input#f2_b.fra(type='radio' name='data' onchange='Radiochange();')
               label.fla ALL
             p#r2 The Database curated by conserved domain/featues site
-      form#cgi(action='../cgi-bin/bar_submit.cgi' method='post' onsubmit='return check()')
+      form#cgi(action='/blastRun' method='post' onsubmit='return check()')
         .sewrap
           label.Query_label(for='Query')
             span.num 2.
             |  Enter a sequence in fasta fomat
           .thrbtn
             div
-              input(type='radio' name='sa' value='0' onclick='sample(1)')
+              input(type='radio' name='sampleGene' value='0' onclick='sample(1)')
               | clear the text
             div
-              input(type='radio' name='sa' value='1' checked='checked' onclick='sample(2)')
+              input(type='radio' name='sampleGene' value='1' checked='checked' onclick='sample(2)')
               | rbcL sample
             div
-              input(type='radio' name='sa' value='2' onclick='sample(3)')
+              input(type='radio' name='sampleGene' value='2' onclick='sample(3)')
               | matK sample
-        // maxlength_non_javascript
         textarea#query(name='query' maxlength='2000' oninput='gosubmit()')
           | >sample(default --rbcL--)
           | atgtcaccacaaacagagactaaagcaagtgttggattcaaagctggtgttaaagaatacaaattgacttattatactcctgactatgaaccccatgaccatgatatcttggcagcatttcgagtaactcctcaacctggagttccaccagaagaagcaggggctgcggtagctgccgaatcttctactggtacatggacaactgtgtggaccgatggacttaccagccttgatcgttacaaaggacgatgctaccacatcgagcctgttcctggcgaagaa
@@ -194,7 +193,7 @@ block main
         | sequences in this database have almost all the same length, so you don't have to care this point
         | if you use this database.
 
-block script
+block scripts
   script(type='text/javascript').
     function check(){
     te_wo = document.getElementById("query").value;
@@ -215,11 +214,20 @@ block script
     return false;
     }
     rad=Radiochange();
+    //動的に送信するフォームタグの中に送信を行わないフォームタグの
+    //inputタグを埋め込み、擬似的に2つのフォームを一つのフォームと
+    //して複数の値を送信する
     cr=document.getElementById('cgi');
-    div=document.createElement('input');
-    cr.appendChild(div);
-    div.name = rad[0];
-    div.value = rad[1];
+    div1=document.createElement('input');
+    cr.appendChild(div1);
+    div1.name = "gene" ;
+    div1.value = rad[0];
+
+    div2=document.createElement('input');
+    cr.appendChild(div2);
+    div2.name = "db" ;
+    div2.value = rad[1];
+
     /*return true*/
     }
     function Radiochange(){
