@@ -1,6 +1,9 @@
-extends layout
-
-block content
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+doctype html
+html
+  head 
+    meta(charset='utf-8')
+    title Barcode DB for plants identification
+  body
+    h1= message
+    h2= error.status
+    pre #{error.stack}
