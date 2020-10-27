@@ -9,6 +9,7 @@ var usersRouter = require('./routes/users');
 var downloadRouter = require('./routes/download');
 var taxonomyRouter = require('./routes/taxonomy');
 var helpRouter = require('./routes/help');
+var blastRunRouter = require('./routes/blastRun')
 
 var app = express();
 
@@ -18,7 +19,7 @@ app.set('view engine', 'jade');
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -27,6 +28,7 @@ app.use('/users', usersRouter);
 app.use('/download', downloadRouter);
 app.use('/taxonomy', taxonomyRouter);
 app.use('/help', helpRouter);
+app.use('/blastRun',blastRunRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
