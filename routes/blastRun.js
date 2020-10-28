@@ -49,14 +49,17 @@ router.post('/',function(req,res,next){
     const fs = require('fs');
 
     //blastで利用する入出力ファイル名の決定
-    new Promise(function(resolve,reject){
-        const randomNum = parseInt(Math.random()*100000);
-        const tmpQueryTextName = `${randomNum}.fasta`;
-        const tmpOutTextName   = `${randomNum}.txt`;
-        resolve([tmpQueryTextName,tmpOutTextName]);
-    })
-    .then(function([tmpQueryTextName,tmpOutTextName]){
-        //ユーザから渡された塩基配列をテキストに書き出し
+    function getFileName(){
+        return new Promise(function(resolve,reject){
+            const randomNum = parseInt(Math.random()*100000);
+            const tmpQueryTextName = `${randomNum}.fasta`;
+            const tmpOutTextName   = `${randomNum}.txt`;
+            resolve([tmpQueryTextName,tmpOutTextName]);
+        });
+    };
+
+    //ユーザから渡された塩基配列をテキストに書き出し
+    function outQryToText([tmpQueryTextName,tmpOutTextName]){
         return new Promise(function(resolve,reject){       
             fs.writeFile(tmpQueryTextName,req.body.query,function(err){
                 if(err){
@@ -65,11 +68,19 @@ router.post('/',function(req,res,next){
                 }
                 resolve('fileWriteDone!');       
             })
-        })
-    }).then(function(result){
-        res.send(result);
-    }).catch(function(err){
-        res.send(err.toString);
-    });
+        });
+    };
+
+    Promise.resolve()
+        .then(function(){
+            return getFileName();
+        }).then(function([tmpQueryTextName,tmpOutTextName]){
+            return outQryToText([tmpQueryTextName,tmpOutTextName]);
+        }).then(function(result){
+            res.send(result);
+        }).catch(function(err){
+            res.send(err.toString);
+        });
 })
+
 module.exports = router;
