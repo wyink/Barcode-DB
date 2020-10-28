@@ -10,6 +10,7 @@ var downloadRouter = require('./routes/download');
 var taxonomyRouter = require('./routes/taxonomy');
 var helpRouter = require('./routes/help');
 var blastRunRouter = require('./routes/blastRun')
+var userErrorRouter = require('./routes/user_error');
 
 var app = express();
 
@@ -29,6 +30,7 @@ app.use('/download', downloadRouter);
 app.use('/taxonomy', taxonomyRouter);
 app.use('/help', helpRouter);
 app.use('/blastRun',blastRunRouter);
+app.use('/user_error',userErrorRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
