@@ -1,0 +1,1776 @@
+doctype html
+html(lang='ja')
+  head
+    meta(charset='utf-8')
+    title blast_result_screen
+    link(rel='stylesheet' href='/stylesheets/Common_header.css')
+  body
+    header
+      .header-inner
+        .Logo Barcode DB
+        .header-item
+          nav.nav1
+            ul
+              li
+                a(href='/')   Top   
+              li
+                a(href='./download') DownLoad
+              li
+                a(href='./taxonomy') Taxonomy
+              li
+                a(href='./help')   Help  
+    .hpad
+    .content_wrap
+      .content_main
+        .s_wrap
+          .second_wrap
+            .top_info
+              h2.h2_1 Top Hit
+              table#accordion.topul
+                tbody
+                  tr#top_bar.topulel
+                    th TaxonomyID
+                    th species
+                    th genus
+                    th family
+                    th phylum
+                  tr#lineheight.topulel.adjust
+                    td
+                      a(href='https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=62338') 62338
+                    td Blyxa japonica
+                    td Blyxa
+                    td Hydrocharitaceae
+                    td
+                      | Streptophyta
+            h2.h2_2 Distribution of your Query against the DB
+            .svg_wrap
+              table.query_info
+                caption Query infomation
+                tbody
+                  tr
+                    th QueryID
+                    td sample(default
+                  tr
+                    th Length
+                    td 282
+              .s_info
+                ul.s_ul
+                  li Scale   >>
+                  li Database >>
+                  li Your_Query >>
+              svg(xmlns='http://www.w3.org/2000/svg' height='150px')
+                text.mmr(x='21%' y='13%' fill='#148c81' font-size='15' font-weight='bold')
+                  | 250bp
+                text.mmr(x='46%' y='13%' fill='#148c81' font-size='15' font-weight='bold')
+                  | 500bp
+                text.mmr(x='71%' y='13%' fill='#148c81' font-size='15' font-weight='bold')
+                  | 750bp
+                line.sca_1(x1='0%' y1='20%' x2='100%' y2='20%')
+                line.len_db(x1='0%' y1='50%' x2='100%' y2='50%')
+                line.edge(x1='0%' y1='17%' x2='0%' y2='23%')
+                line.scale(x1='25%' y1='17%' x2='25%' y2='90%')
+                line.scale(x1='50%' y1='17%' x2='50%' y2='90%')
+                line.scale(x1='75%' y1='17%' x2='75%' y2='90%')
+                line.edge(x1='100%' y1='17%' x2='100%' y2='23%')
+                line.len_qr(x1='0%' y1='80%' x2='27%' y2='80%')
+        h2.h2_3 Blast Result List
+        .table_wrap
+          table.blast_result
+            tbody
+              tr
+                th Subject_ID
+                th species
+                th
+                  | Identity
+                  br
+                  | (%)
+                th
+                  | Alignment
+                  br
+                  | length
+                th
+                  | Mis
+                  br
+                  | mathes
+                th
+                  | Gap
+                  br
+                  | openings
+                th
+                  | Query
+                  br
+                  | start
+                th
+                  | Query
+                  br
+                  | end
+                th
+                  | Subject
+                  br
+                  | start
+                th
+                  | Subject
+                  br
+                  | end
+                th E-value
+                th
+                  | Bit
+                  br
+                  | score
+              tr
+                td
+                  a(href= sequrl) #{seqid}
+                td Blyxa japonica
+                td 100.000
+                td 282
+                td 0
+                td 0
+                td 1
+                td 282
+                td 1
+                td 282
+                td 2.92e-147
+                td 521
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AOO77654.1') AOO77654.1
+                td Ottelia balansae
+                td 94.662
+                td 281
+                td 9
+                td 3
+                td 1
+                td 281
+                td 199
+                td 473
+                td 5.06e-120
+                td 431
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AOO77652.1') AOO77652.1
+                td Ottelia acuminata
+                td 94.662
+                td 281
+                td 9
+                td 3
+                td 1
+                td 281
+                td 199
+                td 473
+                td 5.06e-120
+                td 431
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/BAB18665.1') BAB18665.1
+                td Ottelia alismoides
+                td 94.662
+                td 281
+                td 9
+                td 3
+                td 1
+                td 281
+                td 1
+                td 275
+                td 5.06e-120
+                td 431
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/BAB18657.1') BAB18657.1
+                td Egeria densa
+                td 94.662
+                td 281
+                td 9
+                td 3
+                td 1
+                td 281
+                td 1
+                td 275
+                td 5.06e-120
+                td 431
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AOO77653.1') AOO77653.1
+                td Ottelia emersa
+                td 94.306
+                td 281
+                td 10
+                td 3
+                td 1
+                td 281
+                td 199
+                td 473
+                td 2.36e-118
+                td 425
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AAX84508.1') AAX84508.1
+                td Ottelia acuminata
+                td 94.306
+                td 281
+                td 10
+                td 3
+                td 1
+                td 281
+                td 199
+                td 473
+                td 2.36e-118
+                td 425
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AEY84633.1') AEY84633.1
+                td Elodea canadensis
+                td 93.950
+                td 281
+                td 11
+                td 3
+                td 1
+                td 281
+                td 199
+                td 473
+                td 1.10e-116
+                td 420
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AAW63072.1') AAW63072.1
+                td Elodea granatensis
+                td 93.950
+                td 281
+                td 11
+                td 3
+                td 1
+                td 281
+                td 1
+                td 275
+                td 1.10e-116
+                td 420
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AER28904.1') AER28904.1
+                td Stratiotes aloides
+                td 93.594
+                td 281
+                td 12
+                td 3
+                td 1
+                td 281
+                td 199
+                td 473
+                td 5.10e-115
+                td 414
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/BAB18666.1') BAB18666.1
+                td Stratiotes aloides
+                td 93.594
+                td 281
+                td 12
+                td 3
+                td 1
+                td 281
+                td 1
+                td 275
+                td 5.10e-115
+                td 414
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/BAD20575.1') BAD20575.1
+                td Blyxa echinosperma
+                td 92.857
+                td 294
+                td 3
+                td 4
+                td 1
+                td 282
+                td 199
+                td 486
+                td 6.60e-114
+                td 411
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/BAB18658.1') BAB18658.1
+                td Elodea nuttallii
+                td 93.238
+                td 281
+                td 13
+                td 3
+                td 1
+                td 281
+                td 1
+                td 275
+                td 2.37e-113
+                td 409
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AAW63073.1') AAW63073.1
+                td Lagarosiphon muscoides
+                td 91.103
+                td 281
+                td 19
+                td 3
+                td 1
+                td 281
+                td 1
+                td 275
+                td 2.41e-103
+                td 375
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/BAB18663.1') BAB18663.1
+                td Lagarosiphon madagascariensis
+                td 91.103
+                td 281
+                td 19
+                td 3
+                td 1
+                td 281
+                td 1
+                td 275
+                td 2.41e-103
+                td 375
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AER28901.1') AER28901.1
+                td Butomus umbellatus
+                td 88.968
+                td 281
+                td 25
+                td 3
+                td 1
+                td 281
+                td 199
+                td 473
+                td 2.44e-93
+                td 342
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/ADN79116.1') ADN79116.1
+                td Posidonia oceanica
+                td 88.968
+                td 281
+                td 25
+                td 3
+                td 1
+                td 281
+                td 199
+                td 473
+                td 2.44e-93
+                td 342
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/ABD64666.1') ABD64666.1
+                td Butomus umbellatus
+                td 88.968
+                td 281
+                td 25
+                td 3
+                td 1
+                td 281
+                td 159
+                td 433
+                td 2.44e-93
+                td 342
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AAW63069.1') AAW63069.1
+                td Butomus umbellatus
+                td 88.968
+                td 281
+                td 25
+                td 3
+                td 1
+                td 281
+                td 1
+                td 275
+                td 2.44e-93
+                td 342
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AJP15789.1') AJP15789.1
+                td Amphibolis griffithii
+                td 88.849
+                td 278
+                td 25
+                td 3
+                td 1
+                td 278
+                td 196
+                td 467
+                td 1.14e-91
+                td 337
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/ADN79115.1') ADN79115.1
+                td Posidonia kirkmanii
+                td 88.256
+                td 281
+                td 27
+                td 3
+                td 1
+                td 281
+                td 199
+                td 473
+                td 5.28e-90
+                td 331
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AOO77758.1') AOO77758.1
+                td Potamogeton oxyphyllus
+                td 86.525
+                td 282
+                td 33
+                td 3
+                td 1
+                td 281
+                td 88
+                td 365
+                td 3.20e-82
+                td 305
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AOO77625.1') AOO77625.1
+                td Cymodocea rotundata
+                td 88.327
+                td 257
+                td 24
+                td 3
+                td 22
+                td 278
+                td 1
+                td 251
+                td 1.15e-81
+                td 303
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AOO77756.1') AOO77756.1
+                td Potamogeton cristatus
+                td 86.170
+                td 282
+                td 34
+                td 3
+                td 1
+                td 281
+                td 88
+                td 365
+                td 1.49e-80
+                td 300
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AMQ13386.1') AMQ13386.1
+                td Potamogeton perfoliatus
+                td 86.170
+                td 282
+                td 34
+                td 3
+                td 1
+                td 281
+                td 199
+                td 476
+                td 1.49e-80
+                td 300
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AER28903.1') AER28903.1
+                td Limnobium spongia
+                td 86.833
+                td 281
+                td 22
+                td 6
+                td 1
+                td 281
+                td 199
+                td 464
+                td 1.49e-80
+                td 300
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/BAB18671.1') BAB18671.1
+                td Potamogeton distinctus
+                td 86.170
+                td 282
+                td 34
+                td 3
+                td 1
+                td 281
+                td 1
+                td 278
+                td 1.49e-80
+                td 300
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/BAB18664.1') BAB18664.1
+                td Limnobium laevigatum
+                td 86.833
+                td 281
+                td 22
+                td 6
+                td 1
+                td 281
+                td 1
+                td 266
+                td 1.49e-80
+                td 300
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/BAD20574.1') BAD20574.1
+                td Potamogeton distinctus
+                td 85.461
+                td 282
+                td 36
+                td 3
+                td 1
+                td 281
+                td 199
+                td 476
+                td 2.49e-78
+                td 292
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AEI58856.1') AEI58856.1
+                td Zannichellia palustris
+                td 85.106
+                td 282
+                td 34
+                td 5
+                td 1
+                td 281
+                td 62
+                td 336
+                td 5.40e-75
+                td 281
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/BAO66444.1') BAO66444.1
+                td Zannichellia palustris
+                td 85.106
+                td 282
+                td 34
+                td 5
+                td 1
+                td 281
+                td 199
+                td 473
+                td 5.40e-75
+                td 281
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/BAO66443.1') BAO66443.1
+                td Zannichellia palustris
+                td 85.106
+                td 282
+                td 34
+                td 5
+                td 1
+                td 281
+                td 199
+                td 473
+                td 5.40e-75
+                td 281
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/BAO66442.1') BAO66442.1
+                td Zannichellia palustris
+                td 85.106
+                td 282
+                td 34
+                td 5
+                td 1
+                td 281
+                td 199
+                td 473
+                td 5.40e-75
+                td 281
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/BAO66441.1') BAO66441.1
+                td Zannichellia palustris
+                td 85.106
+                td 282
+                td 34
+                td 5
+                td 1
+                td 281
+                td 199
+                td 473
+                td 5.40e-75
+                td 281
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AFJ11520.1') AFJ11520.1
+                td Astelia banksii
+                td 83.333
+                td 294
+                td 35
+                td 10
+                td 1
+                td 281
+                td 31
+                td 323
+                td 2.53e-68
+                td 259
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AFY64124.1') AFY64124.1
+                td Najas flexilis
+                td 83.039
+                td 283
+                td 40
+                td 6
+                td 1
+                td 282
+                td 199
+                td 474
+                td 1.52e-65
+                td 250
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/ADT64422.1') ADT64422.1
+                td Najas sp. NPT-2010
+                td 83.039
+                td 283
+                td 40
+                td 6
+                td 1
+                td 282
+                td 1
+                td 276
+                td 1.52e-65
+                td 250
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/ADT64421.1') ADT64421.1
+                td Najas sp. NPT-2010
+                td 83.039
+                td 283
+                td 40
+                td 6
+                td 1
+                td 282
+                td 1
+                td 276
+                td 1.52e-65
+                td 250
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/ADT64420.1') ADT64420.1
+                td Najas sp. NPT-2010
+                td 83.039
+                td 283
+                td 40
+                td 6
+                td 1
+                td 282
+                td 1
+                td 276
+                td 1.52e-65
+                td 250
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/ADT64412.1') ADT64412.1
+                td Najas guadalupensis
+                td 83.039
+                td 283
+                td 40
+                td 6
+                td 1
+                td 282
+                td 1
+                td 276
+                td 1.52e-65
+                td 250
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/ADT64411.1') ADT64411.1
+                td Najas guadalupensis
+                td 83.039
+                td 283
+                td 40
+                td 6
+                td 1
+                td 282
+                td 1
+                td 276
+                td 1.52e-65
+                td 250
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/ADT64408.1') ADT64408.1
+                td Najas guadalupensis
+                td 83.039
+                td 283
+                td 40
+                td 6
+                td 1
+                td 282
+                td 1
+                td 276
+                td 1.52e-65
+                td 250
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/ADT64407.1') ADT64407.1
+                td Najas guadalupensis
+                td 83.039
+                td 283
+                td 40
+                td 6
+                td 1
+                td 282
+                td 1
+                td 276
+                td 1.52e-65
+                td 250
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/ADT64406.1') ADT64406.1
+                td Najas guadalupensis
+                td 83.039
+                td 283
+                td 40
+                td 6
+                td 1
+                td 282
+                td 1
+                td 276
+                td 1.52e-65
+                td 250
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/ADT64405.1') ADT64405.1
+                td Najas guadalupensis
+                td 83.039
+                td 283
+                td 40
+                td 6
+                td 1
+                td 282
+                td 1
+                td 276
+                td 1.52e-65
+                td 250
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/ADT64404.1') ADT64404.1
+                td Najas guadalupensis
+                td 83.039
+                td 283
+                td 40
+                td 6
+                td 1
+                td 282
+                td 1
+                td 276
+                td 1.52e-65
+                td 250
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/ADT64403.1') ADT64403.1
+                td Najas guadalupensis
+                td 83.039
+                td 283
+                td 40
+                td 6
+                td 1
+                td 282
+                td 1
+                td 276
+                td 1.52e-65
+                td 250
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/ADT64401.1') ADT64401.1
+                td Najas flexilis
+                td 83.039
+                td 283
+                td 40
+                td 6
+                td 1
+                td 282
+                td 1
+                td 276
+                td 1.52e-65
+                td 250
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/ADT64400.1') ADT64400.1
+                td Najas flexilis
+                td 83.039
+                td 283
+                td 40
+                td 6
+                td 1
+                td 282
+                td 1
+                td 276
+                td 1.52e-65
+                td 250
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/ADT64399.1') ADT64399.1
+                td Najas flexilis
+                td 83.039
+                td 283
+                td 40
+                td 6
+                td 1
+                td 282
+                td 1
+                td 276
+                td 1.52e-65
+                td 250
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/ADT64398.1') ADT64398.1
+                td Najas flexilis
+                td 83.039
+                td 283
+                td 40
+                td 6
+                td 1
+                td 282
+                td 1
+                td 276
+                td 1.52e-65
+                td 250
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AZP74012.1') AZP74012.1
+                td Astelia pumila
+                td 82.828
+                td 297
+                td 34
+                td 10
+                td 1
+                td 281
+                td 199
+                td 494
+                td 1.52e-65
+                td 250
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AEI58808.1') AEI58808.1
+                td Ottelia emersa
+                td 97.260
+                td 146
+                td 4
+                td 0
+                td 136
+                td 281
+                td 1
+                td 146
+                td 5.47e-65
+                td 248
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/BAB18662.1') BAB18662.1
+                td Hydrocharis dubia
+                td 83.986
+                td 281
+                td 21
+                td 8
+                td 1
+                td 281
+                td 1
+                td 257
+                td 5.47e-65
+                td 248
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AZP74270.1') AZP74270.1
+                td Astelia pumila
+                td 82.492
+                td 297
+                td 35
+                td 10
+                td 1
+                td 281
+                td 199
+                td 494
+                td 7.08e-64
+                td 244
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AZP74184.1') AZP74184.1
+                td Astelia pumila
+                td 82.492
+                td 297
+                td 35
+                td 10
+                td 1
+                td 281
+                td 199
+                td 494
+                td 7.08e-64
+                td 244
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AZP74098.1') AZP74098.1
+                td Astelia pumila
+                td 82.492
+                td 297
+                td 35
+                td 10
+                td 1
+                td 281
+                td 199
+                td 494
+                td 7.08e-64
+                td 244
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AZP73925.1') AZP73925.1
+                td Astelia pumila
+                td 82.492
+                td 297
+                td 35
+                td 10
+                td 1
+                td 281
+                td 199
+                td 494
+                td 7.08e-64
+                td 244
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/ATB18710.1') ATB18710.1
+                td Barnardia japonica
+                td 82.069
+                td 290
+                td 39
+                td 10
+                td 1
+                td 279
+                td 199
+                td 486
+                td 4.26e-61
+                td 235
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AZL35650.1') AZL35650.1
+                td Barnardia japonica
+                td 82.069
+                td 290
+                td 39
+                td 10
+                td 1
+                td 279
+                td 199
+                td 486
+                td 4.26e-61
+                td 235
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/BAA84061.1') BAA84061.1
+                td Scilla scilloides
+                td 82.069
+                td 290
+                td 39
+                td 10
+                td 1
+                td 279
+                td 54
+                td 341
+                td 4.26e-61
+                td 235
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AHI90565.1') AHI90565.1
+                td Wurmbea triquetra
+                td 81.818
+                td 286
+                td 44
+                td 5
+                td 1
+                td 279
+                td 199
+                td 483
+                td 1.53e-60
+                td 233
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AKB92908.1') AKB92908.1
+                td Colchicum autumnale
+                td 81.661
+                td 289
+                td 42
+                td 5
+                td 1
+                td 279
+                td 199
+                td 486
+                td 1.98e-59
+                td 230
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AHI90555.1') AHI90555.1
+                td Colchicum bornmuelleri
+                td 81.661
+                td 289
+                td 42
+                td 5
+                td 1
+                td 279
+                td 199
+                td 486
+                td 1.98e-59
+                td 230
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AHI90544.1') AHI90544.1
+                td Androcymbium circinatum
+                td 82.332
+                td 283
+                td 33
+                td 10
+                td 1
+                td 279
+                td 199
+                td 468
+                td 1.98e-59
+                td 230
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AFP48624.1') AFP48624.1
+                td Colchicum bornmuelleri
+                td 81.661
+                td 289
+                td 42
+                td 5
+                td 1
+                td 279
+                td 199
+                td 486
+                td 1.98e-59
+                td 230
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AFP48623.1') AFP48623.1
+                td Androcymbium circinatum
+                td 82.332
+                td 283
+                td 33
+                td 10
+                td 1
+                td 279
+                td 199
+                td 468
+                td 1.98e-59
+                td 230
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/BAB16789.2') BAB16789.2
+                td Colchicum speciosum
+                td 81.661
+                td 289
+                td 42
+                td 5
+                td 1
+                td 279
+                td 199
+                td 486
+                td 1.98e-59
+                td 230
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AHI90584.1') AHI90584.1
+                td Wurmbea spicata
+                td 81.469
+                td 286
+                td 45
+                td 5
+                td 1
+                td 279
+                td 199
+                td 483
+                td 7.13e-59
+                td 228
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AHI90581.1') AHI90581.1
+                td Wurmbea marginata
+                td 81.469
+                td 286
+                td 45
+                td 5
+                td 1
+                td 279
+                td 199
+                td 483
+                td 7.13e-59
+                td 228
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AHI90579.1') AHI90579.1
+                td Wurmbea kraussii
+                td 81.469
+                td 286
+                td 45
+                td 5
+                td 1
+                td 279
+                td 199
+                td 483
+                td 7.13e-59
+                td 228
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AFP48619.1') AFP48619.1
+                td Wurmbea triquetra
+                td 81.469
+                td 286
+                td 45
+                td 5
+                td 1
+                td 279
+                td 199
+                td 483
+                td 7.13e-59
+                td 228
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AFP48618.1') AFP48618.1
+                td Wurmbea spicata
+                td 81.469
+                td 286
+                td 45
+                td 5
+                td 1
+                td 279
+                td 199
+                td 483
+                td 7.13e-59
+                td 228
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AHI90564.1') AHI90564.1
+                td Colchicum montanum
+                td 81.315
+                td 289
+                td 43
+                td 5
+                td 1
+                td 279
+                td 199
+                td 486
+                td 9.22e-58
+                td 224
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AHI90548.1') AHI90548.1
+                td Androcymbium europaeum
+                td 81.315
+                td 289
+                td 43
+                td 5
+                td 1
+                td 279
+                td 199
+                td 486
+                td 9.22e-58
+                td 224
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AHI90546.1') AHI90546.1
+                td Androcymbium dregei
+                td 81.315
+                td 289
+                td 43
+                td 5
+                td 1
+                td 279
+                td 199
+                td 486
+                td 9.22e-58
+                td 224
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AHI90545.1') AHI90545.1
+                td Androcymbium cruciatum
+                td 81.315
+                td 289
+                td 43
+                td 5
+                td 1
+                td 279
+                td 199
+                td 486
+                td 9.22e-58
+                td 224
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AFP48625.1') AFP48625.1
+                td Colchicum montanum
+                td 81.315
+                td 289
+                td 43
+                td 5
+                td 1
+                td 279
+                td 199
+                td 486
+                td 9.22e-58
+                td 224
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AHI90550.1') AHI90550.1
+                td Androcymbium scabromarginatum
+                td 80.969
+                td 289
+                td 44
+                td 5
+                td 1
+                td 279
+                td 199
+                td 486
+                td 4.29e-56
+                td 219
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AHI90549.1') AHI90549.1
+                td Androcymbium longipes
+                td 80.969
+                td 289
+                td 44
+                td 5
+                td 1
+                td 279
+                td 199
+                td 486
+                td 4.29e-56
+                td 219
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AHI90543.1') AHI90543.1
+                td Androcymbium ciliolatum
+                td 80.969
+                td 289
+                td 44
+                td 5
+                td 1
+                td 279
+                td 199
+                td 486
+                td 4.29e-56
+                td 219
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/ANO45046.1') ANO45046.1
+                td Wurmbea pygmaea
+                td 80.769
+                td 286
+                td 47
+                td 5
+                td 1
+                td 279
+                td 199
+                td 483
+                td 1.54e-55
+                td 217
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AHI90583.1') AHI90583.1
+                td Wurmbea pygmaea
+                td 80.769
+                td 286
+                td 47
+                td 5
+                td 1
+                td 279
+                td 199
+                td 483
+                td 1.54e-55
+                td 217
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/ANO44927.1') ANO44927.1
+                td Uvularia grandiflora
+                td 80.690
+                td 290
+                td 43
+                td 6
+                td 1
+                td 279
+                td 199
+                td 486
+                td 2.00e-54
+                td 213
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AJP15791.1') AJP15791.1
+                td Tripladenia cunninghamii
+                td 80.623
+                td 289
+                td 45
+                td 5
+                td 1
+                td 279
+                td 196
+                td 483
+                td 2.00e-54
+                td 213
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AHI90571.1') AHI90571.1
+                td Uvularia grandiflora
+                td 80.690
+                td 290
+                td 43
+                td 6
+                td 1
+                td 279
+                td 199
+                td 486
+                td 2.00e-54
+                td 213
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AHI90569.1') AHI90569.1
+                td Sandersonia aurantiaca
+                td 80.623
+                td 289
+                td 45
+                td 6
+                td 1
+                td 279
+                td 199
+                td 486
+                td 2.00e-54
+                td 213
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AHI90561.1') AHI90561.1
+                td Hexacyrtis dickiana
+                td 81.272
+                td 283
+                td 36
+                td 8
+                td 1
+                td 279
+                td 199
+                td 468
+                td 2.00e-54
+                td 213
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AHI90556.1') AHI90556.1
+                td Colchicum speciosum
+                td 80.623
+                td 289
+                td 45
+                td 5
+                td 1
+                td 279
+                td 199
+                td 486
+                td 2.00e-54
+                td 213
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AHI90551.1') AHI90551.1
+                td Androcymbium striatum
+                td 80.623
+                td 289
+                td 45
+                td 6
+                td 1
+                td 279
+                td 199
+                td 486
+                td 2.00e-54
+                td 213
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AHI90542.1') AHI90542.1
+                td Androcymbium bellum
+                td 80.623
+                td 289
+                td 45
+                td 5
+                td 1
+                td 279
+                td 199
+                td 486
+                td 2.00e-54
+                td 213
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AFP48622.1') AFP48622.1
+                td Hexacyrtis dickiana
+                td 81.272
+                td 283
+                td 36
+                td 8
+                td 1
+                td 279
+                td 199
+                td 468
+                td 2.00e-54
+                td 213
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AFP48621.1') AFP48621.1
+                td Sandersonia aurantiaca
+                td 80.623
+                td 289
+                td 45
+                td 6
+                td 1
+                td 279
+                td 199
+                td 486
+                td 2.00e-54
+                td 213
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/BAA84567.1') BAA84567.1
+                td Uvularia grandiflora
+                td 80.690
+                td 290
+                td 43
+                td 6
+                td 1
+                td 279
+                td 199
+                td 486
+                td 2.00e-54
+                td 213
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AHI90582.1') AHI90582.1
+                td Wurmbea monantha
+                td 80.420
+                td 286
+                td 48
+                td 5
+                td 1
+                td 279
+                td 199
+                td 483
+                td 7.18e-54
+                td 211
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AHI90580.1') AHI90580.1
+                td Wurmbea latifolia
+                td 80.420
+                td 286
+                td 48
+                td 5
+                td 1
+                td 279
+                td 199
+                td 483
+                td 7.18e-54
+                td 211
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AHI90578.1') AHI90578.1
+                td Wurmbea dioica
+                td 80.420
+                td 286
+                td 48
+                td 5
+                td 1
+                td 279
+                td 199
+                td 483
+                td 7.18e-54
+                td 211
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AHI90577.1') AHI90577.1
+                td Wurmbea dioica
+                td 80.420
+                td 286
+                td 48
+                td 5
+                td 1
+                td 279
+                td 199
+                td 483
+                td 7.18e-54
+                td 211
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/AHI90576.1') AHI90576.1
+                td Wurmbea dioica
+                td 80.420
+                td 286
+                td 48
+                td 5
+                td 1
+                td 279
+                td 199
+                td 483
+                td 7.18e-54
+                td 211
+              tr
+                td
+                  a(href='https://www.ncbi.nlm.nih.gov/protein/ANO45452.1') ANO45452.1
+                td Burchardia umbellata
+                td 80.345
+                td 290
+                td 44
+                td 7
+                td 1
+                td 279
+                td 199
+                td 486
+                td 9.29e-53
+                td 207
+    style(type='text/css').
+      <!--
+      .hpad{
+      padding:51px;
+      }
+      .second_wrap{
+      display:flex;
+      flex-direction:column;
+      justify-content:space-evenly;
+      padding:30px;
+      padding-top:10px;
+      }
+      .svg_wrap{
+      display:flex;
+      justify-content:flex-start;
+      padding:0 15px;
+      align-items: center;
+      margin:5px 0;
+      border:2px solid #607d8b;
+      background-color:aliceblue;
+      border-radius:10px;
+      }
+      .query_info{
+      font-weight:bold;
+      width:350px;
+      margin-bottom:10px;
+      padding:10px;
+      color:#374952;
+      }
+      .s_info{
+      display:inline-block;
+      margin-left:auto;
+      }
+      .s_info li{
+      list-style:none;
+      margin-top:5px;
+      padding:8px;
+      font-weight:bold;
+      color:white;
+      background-color:#2ea6bd;
+      border-radius:3px;
+      text-align:center;
+      }
+      svg{
+      width:560px;
+      margin-left:10px;
+      }
+      line{
+      stroke-width:5px;
+      }
+      line.sca_1{
+      stroke-width:2px;
+      stroke:black;
+      }
+      line.len_db{
+      stroke:#009688;
+      }
+      line.len_qr{
+      stroke:#e91e1e;
+      }
+      line.scale{
+      stroke-width:2px;
+      stroke-dasharray: 5px;
+      stroke:#607d8b75;
+      }
+      line.edge{
+      stroke-width:5px;
+      stroke:black;
+      }
+      table{
+      width:100%;
+      table-layout:auto;
+      word-wrap:break-word;
+      border-collapse:collapse;
+      border-spacing:0;
+      }
+      table th,table td{
+      padding:4px;
+      margin:0;
+      box-shadow:0 0 5px 2px #3e393912;
+      text-align:center;
+      border:2px solid #d4c3c3;
+      }
+      table tr:nth-child(odd){
+      background-color:#eee;
+      }
+      .content_wrap{
+      margin:auto;
+      max-width:1280px;
+      }
+      .content_main{
+      border-radius:20px;
+      background-color:white;
+      margin:0 30px
+      }
+      h2{
+      background-color:#009688;
+      color:white;
+      }
+      .h2_1{
+      margin-top:10px;
+      padding:10px;
+      padding-left:20px;
+      margin-bottom:5px;
+      border-radius: 5px;
+      }
+      .h2_2{
+      border:1px solid;
+      margin-bottom:0;
+      padding:15px;
+      border-radius:5px;
+      margin-top:30px;
+      }
+      .h2_3{
+      border-radius:5px;
+      margin:0 30px;
+      padding:10px;
+      }
+      .topul{
+      padding:0;
+      word-break:break-word;
+      }
+      .adjust td:nth-child(1),
+      .adjust td:nth-child(2){
+      width:20%;
+      font-weight:bold;
+      color:#3c1c1c;
+      }
+      .adjust td:nth-child(1){
+      font-size:18px;
+      }
+      .topulel td, .topulel th{
+      border:2px solid #3a6d77;
+      padding:13px;
+      }
+      .topul tr:nth-child(odd){
+      background-color:#eef9f9;
+      }
+      #top_bar{
+      background-color:#607D8B;
+      color:white;
+      font-size:20px;
+      }
+      .table_wrap{
+      padding:30px;
+      padding-top:5px;
+      }
+      .blast_result{
+      word-break:break-all;
+      }
+      .blast_result td{
+      color:black;
+      font-weight:bold;
+      font-size:13px;
+      }
+      .blast_result th{
+      color:#607d8b;
+      font-size:14px;
+      background-color:aliceblue;
+      }
+      .blast_result td:nth-child(12){
+      white-space:nowrap;
+      }
+      .toggle{
+      visibility:visible;
+      }
+      button{
+      background-color:#607d8b;
+      color:white;
+      border-color:white;
+      border-radius: 12px;
+      width:100%;
+      font-size:25px;
+      text-align:center;
+      font-weight:bold;
+      padding:20px;
+      padding-left:30px;
+      outline:0;
+      position:relative;
+      }
+      .btn_wrap{
+      border:2px solid #3a6d77;
+      border-top:none;
+      padding:10px 5px;
+      background-color:#eee;
+      }
+      .nav_s,.nav_c{
+      width:30px;
+      height:30px;
+      float:left;
+      margin:0;
+      border:5px solid white;
+      }
+      .nav_c{
+      transform:translateY(20%) rotate(45deg);
+      border-bottom:0px solid transparent;
+      border-right:0px solid transparent;
+      }
+      .nav_s{
+      transform: translateY(-20%) rotate(45deg);
+      border-top:0px solid transparent;
+      border-left:0px solid transparent;
+      }
+      .query_info th{
+      background-color:skyblue;
+      width:15%;
+      padding:13px;
+      border:1.5px solid #607D8B;
+      }
+      .query_info td{
+      background-color:#eee;
+      }
+      .query_info td{
+      max-width:150px;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+      overflow:hidden;
+      }
+      caption{
+      padding:8px;
+      font-weight:bold;
+      color:#607d8b;
+      font-size:19px;
+      }
+      .s_ul{
+      display:inline-block;
+      margin-left:30px;
+      }
+      #accordion{
+      table-layout:fixed;
+      }
+    script(type='text/javascript').
+      <!--
+      window.onload=function(){
+      acc=document.getElementsByClassName('toggle');
+      for(var i=0;i<acc.length;i++){
+      acc[i].style.visibility="collapse";
+      }
+      }
+      function show(){
+      button = document.getElementsByTagName('button');
+      btn=button[0].innerHTML;
+      if(btn === 'Show ALL<p class="nav_s"></p>'){
+      var tar=document.getElementsByClassName('toggle');
+      for(var j=0;j<tar.length;j++){
+      tar[j].style.visibility="visible";
+      }
+      button[0].innerHTML = 'CLOSE<p class="nav_c"></p>';
+      }else if(btn === 'CLOSE<p class="nav_c"></p>'){
+      var cls=document.getElementsByClassName('toggle');
+      for(var j=0;j<cls.length;j++){
+      cls[j].style.visibility="collapse";
+      }
+      button[0].innerHTML = 'Show ALL<p class="nav_s"></p>';
+      }
+      };
+      -->
