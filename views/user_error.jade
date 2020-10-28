@@ -1,0 +1,12 @@
+extends ./error_layout
+
+block error_possible_content
+    .N_content
+        span.N_title
+        | Possible Causes:
+        br
+        ul
+        li Nucleotide sequences only.
+        li Your query may not be long enough to identify.
+        li Your query may not include sequences that encodes rbcL gene.
+        li The region encoding rbcL gene may not be long enough to identify.

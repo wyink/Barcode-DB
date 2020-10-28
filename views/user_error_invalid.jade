@@ -1,0 +1,9 @@
+extends ./error_layout
+
+block error_possible_content
+    .N_content
+        span.N_title
+        | Possible Causes:
+        br
+        ul
+        li= error_reason
