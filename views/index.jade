@@ -219,11 +219,13 @@ block scripts
     //して複数の値を送信する
     cr=document.getElementById('cgi');
     div1=document.createElement('input');
+    div1.style.visibility='hidden';
     cr.appendChild(div1);
     div1.name = "gene" ;
     div1.value = rad[0];
 
     div2=document.createElement('input');
+    div2.style.visibility='hidden';
     cr.appendChild(div2);
     div2.name = "db" ;
     div2.value = rad[1];
