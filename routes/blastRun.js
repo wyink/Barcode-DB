@@ -124,6 +124,8 @@ router.post('/',function(req,res,next){
             let qlen ;      // クエリの塩基配列長
             let slen ;      // 参照の塩基配列長
 
+            objArray =[];
+
             rl.on('line',function(line){
                 //console.log(line);
                 counter++;
@@ -142,7 +144,23 @@ router.post('/',function(req,res,next){
                     res.locals.prend   = prend;
    
                 }else{
-                
+                    let params ={
+                        QUERY:query ,     // クエリ(subject)のID
+                        REF:ref  ,      // 参照(reference)のID
+                        IDEN:identity,   // アライメントした配列長における一致率
+                        ALEN:alignLen,   // アライメント長
+                        MM:missMatch,  // ミスマッチのカウント
+                        GA:gapOpen,    // ギャップが生じた箇所のカウント
+                        QS:qstart ,    // クエリのアライメント開始位置
+                        QE:qend,       // クエリのアライメント終了位置
+                        RS:rstart,     // 参照のアライメント開始位置
+                        RE:rend   ,    // 参照のアライメント終了位置
+                        EV:eval,      // E-value
+                        BS:bitScore ,  // スコア（大きい方が2つの配列は類似していると言える）
+                        QL:qlen ,      // クエリの塩基配列長
+                        SL:slen       // 参照の塩基配列長
+                    }
+                    objArray.push(params);
                 }
                 
                 
@@ -161,7 +179,6 @@ router.post('/',function(req,res,next){
         }).then(function(randomNum){
             return blastRun(randomNum);
         }).then(function(outText){
-            
             res.render('blastResult',{
                 sequrl:'https://www.ncbi.nlm.nih.gov/protein/AOO77654.1',
                 seqid:'AAA5555.2'
