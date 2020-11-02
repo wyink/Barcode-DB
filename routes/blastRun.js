@@ -94,21 +94,32 @@ router.post('/',function(req,res,next){
         })
     };
 
-    //blast結果の読み出し
-    //ファイルがから出なかったらnx;
-    function readResultFile(out){
+    function checkFileSize(out){
         return new Promise(function(resolve,reject){
-            //出力がない場合（ここは同期処理）
             if(fs.statSync(out).size == 0){
                 res.render('user_error')
                 next('Router');
+            }else{
+                //ファイルサイズが０より大きい場合は次のミドルウェアへ
+                resolve(out);
             }
+        })
+    }
 
-           　//結果ファイルの解析
-            let rs = fs.createReadStream(out);//streamの作成
+    function readResultFile(out){
+        return new Promise(function(resolve,reject){
+                        
+            let rs = fs.createReadStream(out,encoding = 'utf-8');//streamの作成
             let rl = readline.createInterface({input:rs});
+            
+            let perIdent_ = {
+                PRSTRAT :undefined, //トップヒットした参照配列のアライメント開始位置（単位は％)
+                PREND:undefined     //トップヒットした参照配列のアライメント終了位置（単位は％）
+            };
+            let objArrayIn_ = []; //blast結果各行のデータを要素とする配列
+            
+            //結果ファイルの一行に含まれる各種パラメータの宣言
             let counter = 0; //ファイルの一行目のみ別処理
-
             let query;      // クエリ(subject)のID
             let ref;        // 参照(reference)のID
             let identity;   // アライメントした配列長における一致率
@@ -121,71 +132,98 @@ router.post('/',function(req,res,next){
             let rend ;      // 参照のアライメント終了位置
             let eval;       // E-value
             let bitScore;   // スコア（大きい方が2つの配列は類似していると言える）
-            let qlen ;      // クエリの塩基配列長
-            let slen ;      // 参照の塩基配列長
+            
+            //読み取りエラー時の処理
+            rl.on('error',function(){
+                reject(err);
+            })
 
-            objArray =[];
+            //読み取り終了
+            rl.on('close',function(){
+                resolve({
+                    perIdent:perIdent_,
+                    objArrayIn:objArrayIn_
+                })
+            })
 
+            //読み取り
             rl.on('line',function(line){
-                //console.log(line);
                 counter++;
-                [query,ref,identity,alignLen,missMatch,gapOpen,qstart,qend,rstart,rend,eval,bitscore,qlen,slen]
-                 = line.split('¥t');
-          
+                [query,ref,identity,alignLen,missMatch,gapOpen,qstart,qend,rstart,rend,eval,bitScore,_] = line.split('\t');
                 if(counter == 1){
                     //svgで表示するための参照のアライメント開始位置（単位は割合）
-                    let prstart = `${parseInt(($rstart/1035)*100)}%`;
+                    let displayStart = new Promise(function(resolve,reject){
+                            const prstart = (parseInt((Number(rstart)/1035)*100,10))+'%';
+                            perIdent_.PRSTRAT = prstart;
+                    });
 
                     //svgで表示するための参照のアライメント終了位置（単位は割合）
-                    let prend = `${parseInt(($rend/1035)*100)}%`;
-                    if(prend > 100){ prend = 100; } 
+                    let displayEnd = new Promise(function(resolve,reject){
+                        const prend_ = (parseInt((Number(rend)/1035)*100,10));
+                        if(prend_ > 100){ 
+                            prend = '100%'; 
+                        }else{
+                            prend = `${prend_}%`;
+                        }
+                        perIdent_.PREND   = prend ;
+                    })
 
-                    res.locals.prstart = prstart;
-                    res.locals.prend   = prend;
-   
+                    Promise.all([displayStart,displayEnd])
+                        .then(function(list){
+                            console.log("AlignMentOk");
+                        })
+                        .catch(function(err){
+                            console.log(`AlignMentError: ${err.toString()}`);
+                        })
+
                 }else{
-                    let params ={
-                        QUERY:query ,     // クエリ(subject)のID
-                        REF:ref  ,      // 参照(reference)のID
-                        IDEN:identity,   // アライメントした配列長における一致率
-                        ALEN:alignLen,   // アライメント長
-                        MM:missMatch,  // ミスマッチのカウント
-                        GA:gapOpen,    // ギャップが生じた箇所のカウント
-                        QS:qstart ,    // クエリのアライメント開始位置
-                        QE:qend,       // クエリのアライメント終了位置
-                        RS:rstart,     // 参照のアライメント開始位置
-                        RE:rend   ,    // 参照のアライメント終了位置
-                        EV:eval,      // E-value
-                        BS:bitScore ,  // スコア（大きい方が2つの配列は類似していると言える）
-                        QL:qlen ,      // クエリの塩基配列長
-                        SL:slen       // 参照の塩基配列長
-                    }
-                    objArray.push(params);
-                }
-                
-                
-　　
-            })
+                    objArrayIn_.push({
+                            URL:`https://www.ncbi.nlm.nih.gov/protein/${query}`, // 検索結果に表示するURL
+                            QUERY:query   ,     // 検索配列(subject)のID
+                            REF:ref       ,     // 参照配列(reference)のID
+                            IDEN:identity ,     // アライメントした配列長における一致率
+                            ALEN:alignLen ,     // アライメント長
+                            MM:missMatch  ,     // ミスマッチの総数
+                            GA:gapOpen    ,     // ギャップが生じた箇所の総数
+                            QS:qstart     ,     // クエリのアライメント開始位置
+                            QE:qend       ,     // クエリのアライメント終了位置
+                            RS:rstart     ,     // 参照のアライメント開始位置
+                            RE:rend       ,     // 参照のアライメント終了位置
+                            EV:eval       ,     // E-value値
+                            BS:bitScore   ,     // ビットスコア（大きい方が2つの配列は類似していると言える）
+                    })
+                }               
+            })  
         })
     }
-
-
 
     Promise.resolve()
         .then(function(){
             return getFileName();
         }).then(function(randomNum){
             return outQryToText(randomNum);
-        }).then(function(randomNum){
-            return blastRun(randomNum);
         }).then(function(outText){
+            return readResultFile('bltest.fasta');
+        })
+        .then(function(passObj){
             res.render('blastResult',{
-                sequrl:'https://www.ncbi.nlm.nih.gov/protein/AOO77654.1',
-                seqid:'AAA5555.2'
+                blastLineArray:passObj
             });
-        }).catch(function(err){
+        })
+        .catch(function(err){
             res.send(err.toString);
         });
 })
+
+        /*
+        .then(function(randomNum){
+            return blastRun(randomNum);
+        })
+        */
+        /*
+       .then(function(outText){
+        return checkFileSize(outText);
+        })
+        */
 
 module.exports = router;
