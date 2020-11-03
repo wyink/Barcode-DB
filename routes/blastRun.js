@@ -108,7 +108,7 @@ router.post('/',function(req,res,next){
 
     function readResultFile(out){
         return new Promise(function(resolve,reject){
-                        
+
             let rs = fs.createReadStream(out,encoding = 'utf-8');//streamの作成
             let rl = readline.createInterface({input:rs});
             
@@ -120,25 +120,25 @@ router.post('/',function(req,res,next){
             
             //結果ファイルの一行に含まれる各種パラメータの宣言
             let counter = 0; //ファイルの一行目のみ別処理
-            let query;      // クエリ(subject)のID
-            let ref;        // 参照(reference)のID
-            let identity;   // アライメントした配列長における一致率
-            let alignLen;   // アライメント長
-            let missMatch;  // ミスマッチのカウント
-            let gapOpen;    // ギャップが生じた箇所のカウント
-            let qstart;     // クエリのアライメント開始位置
-            let qend;       // クエリのアライメント終了位置
-            let rstart;     // 参照のアライメント開始位置
-            let rend ;      // 参照のアライメント終了位置
-            let eval;       // E-value
-            let bitScore;   // スコア（大きい方が2つの配列は類似していると言える）
+            let query;       // クエリ(subject)のID
+            let ref;         // 参照(reference)のID
+            let identity;    // アライメントした配列長における一致率
+            let alignLen;    // アライメント長
+            let missMatch;   // ミスマッチのカウント
+            let gapOpen;     // ギャップが生じた箇所のカウント
+            let qstart;      // クエリのアライメント開始位置
+            let qend;        // クエリのアライメント終了位置
+            let rstart;      // 参照のアライメント開始位置
+            let rend ;       // 参照のアライメント終了位置
+            let eval;        // E-value
+            let bitScore;    // スコア（大きい方が2つの配列は類似していると言える）
             
             //読み取りエラー時の処理
             rl.on('error',function(){
                 reject(err);
             })
 
-            //読み取り終了
+            //読み取り終了-
             rl.on('close',function(){
                 resolve({
                     perIdent:perIdent_,
@@ -146,24 +146,25 @@ router.post('/',function(req,res,next){
                 })
             })
 
-            //読み取り
+            //読み取り-
             rl.on('line',function(line){
                 counter++;
                 [query,ref,identity,alignLen,missMatch,gapOpen,qstart,qend,rstart,rend,eval,bitScore,_] = line.split('\t');
+
                 if(counter == 1){
                     //svgで表示するための参照のアライメント開始位置（単位は割合）
                     let displayStart = new Promise(function(resolve,reject){
-                            const prstart = (parseInt((Number(rstart)/1035)*100,10))+'%';
-                            perIdent_.PRSTRAT = prstart;
+                        const prstart = (parseInt((Number(rstart)/1035)*100,10))+'%';
+                        perIdent_.PRSTRAT = prstart;
                     });
 
                     //svgで表示するための参照のアライメント終了位置（単位は割合）
                     let displayEnd = new Promise(function(resolve,reject){
                         const prend_ = (parseInt((Number(rend)/1035)*100,10));
-                        if(prend_ > 100){ 
+                        if(prend_ > 100){
                             prend = '100%'; 
                         }else{
-                            prend = `${prend_}%`;
+                            prend = `${prend_}%` ;
                         }
                         perIdent_.PREND   = prend ;
                     })
@@ -177,42 +178,46 @@ router.post('/',function(req,res,next){
                         })
 
                 }else{
+
                     objArrayIn_.push({
-                            URL:`https://www.ncbi.nlm.nih.gov/protein/${query}`, // 検索結果に表示するURL
-                            QUERY:query   ,     // 検索配列(subject)のID
-                            REF:ref       ,     // 参照配列(reference)のID
-                            IDEN:identity ,     // アライメントした配列長における一致率
-                            ALEN:alignLen ,     // アライメント長
-                            MM:missMatch  ,     // ミスマッチの総数
-                            GA:gapOpen    ,     // ギャップが生じた箇所の総数
-                            QS:qstart     ,     // クエリのアライメント開始位置
-                            QE:qend       ,     // クエリのアライメント終了位置
-                            RS:rstart     ,     // 参照のアライメント開始位置
-                            RE:rend       ,     // 参照のアライメント終了位置
-                            EV:eval       ,     // E-value値
-                            BS:bitScore   ,     // ビットスコア（大きい方が2つの配列は類似していると言える）
+                        URL:`https://www.ncbi.nlm.nih.gov/protein/${ref}`, // 検索結果に表示するURL
+                        QUERY:query   ,     // 検索配列(subject)のID
+                        REF:ref       ,     // 参照配列(reference)のID
+                        IDEN:identity ,     // アライメントした配列長における一致率
+                        ALEN:alignLen ,     // アライメント長
+                        MM:missMatch  ,     // ミスマッチの総数
+                        GA:gapOpen    ,     // ギャップが生じた箇所の総数
+                        QS:qstart     ,     // クエリのアライメント開始位置
+                        QE:qend       ,     // クエリのアライメント終了位置
+                        RS:rstart     ,     // 参照のアライメント開始位置
+                        RE:rend       ,     // 参照のアライメント終了位置
+                        EV:eval       ,     // E-value値
+                        BS:bitScore   ,     // ビットスコア（大きい方が2つの配列は類似していると言える）
                     })
-                }               
-            })  
+                }            
+            })
         })
     }
 
-    Promise.resolve()
-        .then(function(){
-            return getFileName();
-        }).then(function(randomNum){
-            return outQryToText(randomNum);
-        }).then(function(outText){
-            return readResultFile('bltest.fasta');
-        })
-        .then(function(passObj){
+    async function showResultBlast(){
+        const randomNum = await getFileName();
+        const outText   = await outQryToText(randomNum);
+        const resultObj = await readResultFile('bltest.fasta');
+        return resultObj;
+    }
+
+    
+    Promise.all([showResultBlast()])
+        .then(function([resultObj]){
+            console.log(resultObj);
             res.render('blastResult',{
-                blastLineArray:passObj
-            });
+                blastLineArray:resultObj
+            }); 
         })
         .catch(function(err){
             res.send(err.toString);
         });
+
 })
 
         /*
