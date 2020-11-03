@@ -203,12 +203,14 @@ block scripts
     //pass;
     }
     }
-    //alp is fallen into [A-Z]{1}/;
+    location.href = `./taxonomy/:${category}/:${alp}`;
+    /*
     if(category == 'Family'){
-    location.href="Tax_fam/"+alp+".html";
+    location.href=`./Tax_fam/${alp}`;
     }else if(category == 'Genus'){
-    location.href="Tax_ge/"+alp+".html";
+    location.href=`./Tax_ge/${alp}`;
     }else if(category == 'Species'){
-    location.href="Tax_sp/"+alp+".html";
+    location.href=`./Tax_sp/${alp}`;
     }
+    */
     }

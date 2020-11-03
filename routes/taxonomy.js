@@ -6,4 +6,8 @@ router.get('/', function(req, res, next) {
   res.render('taxonomy');
 });
 
+router.get('/:(family|genus|species)/:([A-Z]{1})',function(req, res, next){
+  res.render('taxonomyCat',req.params);
+})
+
 module.exports = router;

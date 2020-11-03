@@ -219,22 +219,23 @@ router.post('/',function(req,res,next){
                 reject(err);
             })
 
-            const regex = /^([A-Z]\d+\.\d)\t\d+\tsp\|(.+) ge\|(.+) fm\|(.+) ph\|(.+)$/;
+            const regex = /^([A-Z]\d+\.\d)\t(\d+)\tsp\|(.+) ge\|(.+) fm\|(.+) ph\|(.+)$/;
             rl.on('line',function(line){
                 // AUT83098.1	440359	sp|Campanula patula ge|Campanula fm|Campanulaceae ph|Streptophyta
-                let ref,sp,ge,fm,ph;
-                [ref,sp,ge,fm,ph] = line.match(regex);
-                hash[ref] = [sp,ge,fm,ph];
+                let ref,taxid,sp,ge,fm,ph;
+                [ref,taxid,sp,ge,fm,ph] = line.match(regex);
+                hash[ref] = [taxid,sp,ge,fm,ph];
             })
 
         })
     }
 
     function makeRelation(resultObj,hash){
-        //返却するオブジェクトのプロパティ情報
+        //引数のresultObjにプロパティを追加して返却する
         /*
-        passObj = {
+        resultObj = {
             topRef:{ //トップヒットは種・属・科・門の情報、それ以外は種の情報を渡す
+                TAXID:undefined,
                 SPECIES:undefined,
                 GENUS:  undefined,
                 FAMILY: undefined,
@@ -265,13 +266,15 @@ router.post('/',function(req,res,next){
         */
 
         //トップヒットは別表示
-        topRef.SPECIES = hash[refseqsFromResult[0]][0];
-        topRef.GENUS   = hash[refseqsFromResult[0]][1];
-        topRef.FAMILY  = hash[refseqsFromResult[0]][2];
-        topRef.PHYLUM  = hash[refseqsFromResult[0]][3];
-        refseqsFromResult.forEach(function(element){
-            passObj.eachCat.push(hash[element][0]);
-        });
+        resultObj.topRef.SPECIES = hash[resultObj.objArrayIn[0].REF][0]
+        resultObj.topRef.GENUS   = hash[resultObj.objArrayIn[0].REF][1];
+        resultObj.topRef.FAMILY  = hash[resultObj.objArrayIn[0].REF][2];
+        resultObj.topRef.PHYLUM  = hash[resultObj.objArrayIn[0].REF][3];
+        
+        for(const objarrayin of resultObj.objArrayIn){
+            objarrayin.SPE = hash[objarrayin.REF][0];
+        }
+
     }
 
     async function showResultBlast(){
