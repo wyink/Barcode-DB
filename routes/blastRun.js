@@ -120,7 +120,6 @@ router.post('/',function(req,res,next){
             
             //結果ファイルの一行に含まれる各種パラメータの宣言
             let counter = 0; //ファイルの一行目のみ別処理
-            let query;       // クエリ(subject)のID
             let ref;         // 参照(reference)のID
             let identity;    // アライメントした配列長における一致率
             let alignLen;    // アライメント長
@@ -149,7 +148,7 @@ router.post('/',function(req,res,next){
             //読み取り-
             rl.on('line',function(line){
                 counter++;
-                [query,ref,identity,alignLen,missMatch,gapOpen,qstart,qend,rstart,rend,eval,bitScore,_] = line.split('\t');
+                [_,ref,identity,alignLen,missMatch,gapOpen,qstart,qend,rstart,rend,eval,bitScore,_] = line.split('\t');
 
                 if(counter == 1){
                     //svgで表示するための参照のアライメント開始位置（単位は割合）
@@ -181,8 +180,8 @@ router.post('/',function(req,res,next){
 
                     objArrayIn_.push({
                         URL:`https://www.ncbi.nlm.nih.gov/protein/${ref}`, // 検索結果に表示するURL
-                        QUERY:query   ,     // 検索配列(subject)のID
                         REF:ref       ,     // 参照配列(reference)のID
+                        CAT:undefined ,     // 分類群情報
                         IDEN:identity ,     // アライメントした配列長における一致率
                         ALEN:alignLen ,     // アライメント長
                         MM:missMatch  ,     // ミスマッチの総数
@@ -199,6 +198,82 @@ router.post('/',function(req,res,next){
         })
     }
 
+    /*
+    * @param[refs]: 検索結果の参照ID
+    */
+    function readCatfile(refseqsFromResult){
+        return new Promise(function(resolve,reject){
+            const mGene = req.body.gene ;
+            const mDb = req.body.db;
+            const fpath = `/public/resources/${mGene}/${mDb}.txt`;
+            let hash = {}; //key:dbテキストのID val: Taxonomy情報（種・属・科・門）
+
+            let rs = fs.createReadStream(fpath,encoding = 'utf-8');
+            let rl = readline.createInterface({input:rs});
+    
+            rl.on('close',function(){
+                resolve(hash);
+            })
+
+            rl.on('error',function(){
+                reject(err);
+            })
+
+            const regex = /^([A-Z]\d+\.\d)\t\d+\tsp\|(.+) ge\|(.+) fm\|(.+) ph\|(.+)$/;
+            rl.on('line',function(line){
+                // AUT83098.1	440359	sp|Campanula patula ge|Campanula fm|Campanulaceae ph|Streptophyta
+                let ref,sp,ge,fm,ph;
+                [ref,sp,ge,fm,ph] = line.match(regex);
+                hash[ref] = [sp,ge,fm,ph];
+            })
+
+        })
+    }
+
+    function makeRelation(resultObj,hash){
+        //返却するオブジェクトのプロパティ情報
+        /*
+        passObj = {
+            topRef:{ //トップヒットは種・属・科・門の情報、それ以外は種の情報を渡す
+                SPECIES:undefined,
+                GENUS:  undefined,
+                FAMILY: undefined,
+                PHYLUM: undefined
+            },
+            perIdent:{
+                PRSTRAT :undefined, //トップヒットした参照配列のアライメント開始位置（単位は％)
+                PREND:undefined     //トップヒットした参照配列のアライメント終了位置（単位は％）
+            },
+            objArrayIn :[ //blast結果各行のデータを要素とする配列
+                {
+                    URL:`https://www.ncbi.nlm.nih.gov/protein/${ref}`, // 検索結果に表示するURL
+                    REF:ref       ,     // 参照配列(reference)のID
+                    SPE:undefined ,     // 種名　
+                    IDEN:identity ,     // アライメントした配列長における一致率
+                    ALEN:alignLen ,     // アライメント長
+                    MM:missMatch  ,     // ミスマッチの総数
+                    GA:gapOpen    ,     // ギャップが生じた箇所の総数
+                    QS:qstart     ,     // クエリのアライメント開始位置
+                    QE:qend       ,     // クエリのアライメント終了位置
+                    RS:rstart     ,     // 参照のアライメント開始位置
+                    RE:rend       ,     // 参照のアライメント終了位置
+                    EV:eval       ,     // E-value値
+                    BS:bitScore   ,     // ビットスコア（大きい方が2つの配列は類似していると言える）
+                },{...},...{...}
+            ]
+        }
+        */
+
+        //トップヒットは別表示
+        topRef.SPECIES = hash[refseqsFromResult[0]][0];
+        topRef.GENUS   = hash[refseqsFromResult[0]][1];
+        topRef.FAMILY  = hash[refseqsFromResult[0]][2];
+        topRef.PHYLUM  = hash[refseqsFromResult[0]][3];
+        refseqsFromResult.forEach(function(element){
+            passObj.eachCat.push(hash[element][0]);
+        });
+    }
+
     async function showResultBlast(){
         const randomNum = await getFileName();
         const outText   = await outQryToText(randomNum);
@@ -207,9 +282,11 @@ router.post('/',function(req,res,next){
     }
 
     
-    Promise.all([showResultBlast()])
+    Promise.all([showResultBlast(),readCatfile()])
+        .then(function([resultObj,hash]){
+            
+        }
         .then(function([resultObj]){
-            console.log(resultObj);
             res.render('blastResult',{
                 blastLineArray:resultObj
             }); 
