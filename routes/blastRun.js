@@ -2,6 +2,7 @@ var express = require('express');
 const readline = require('readline');
 const child_process = require('child_process');
 const fs = require('fs');
+const path = require('path');
 var router = express.Router();
 
 //最初のミドルウェア : 引数の確認
@@ -34,7 +35,7 @@ router.post('/',function(req,res,next){
         errorComment = "Invalid character is included." ;
     }else if(mQuery.indexOf('>',1)){
         //一回のsubmitに一つの塩基配列のみ
-        errorComment = "You can submit once every one seqs." ;
+        errorComment = "You can submit once every one seqs.";
     }
 
     if(errorComment != 'NO_ERROR_OCCURED'){
@@ -205,7 +206,10 @@ router.post('/',function(req,res,next){
         return new Promise(function(resolve,reject){
             const mGene = req.body.gene ;
             const mDb = req.body.db;
-            const fpath = `/public/resources/${mGene}/${mDb}.txt`;
+
+            const routePath = path.join(__dirname, '..');
+            console.log(routePath);
+            const fpath = path.join(routePath ,'public','resources', mGene,`${mDb}.txt`);
             let hash = {}; //key:dbテキストのID val: Taxonomy情報（種・属・科・門）
 
             let rs = fs.createReadStream(fpath,encoding = 'utf-8');
@@ -235,7 +239,7 @@ router.post('/',function(req,res,next){
         /*
         resultObj = {
             topRef:{ //トップヒットは種・属・科・門の情報、それ以外は種の情報を渡す
-                TAXID:undefined,
+                TAXID:  undefined,
                 SPECIES:undefined,
                 GENUS:  undefined,
                 FAMILY: undefined,
@@ -243,7 +247,7 @@ router.post('/',function(req,res,next){
             },
             perIdent:{
                 PRSTRAT :undefined, //トップヒットした参照配列のアライメント開始位置（単位は％)
-                PREND:undefined     //トップヒットした参照配列のアライメント終了位置（単位は％）
+                PREND:   undefined  //トップヒットした参照配列のアライメント終了位置（単位は％）
             },
             objArrayIn :[ //blast結果各行のデータを要素とする配列
                 {
@@ -287,9 +291,9 @@ router.post('/',function(req,res,next){
     
     Promise.all([showResultBlast(),readCatfile()])
         .then(function([resultObj,hash]){
-            
-        }
-        .then(function([resultObj]){
+            makeRelation(resultObj,hash);
+        })
+        .then(function(resultObj){
             res.render('blastResult',{
                 blastLineArray:resultObj
             }); 
