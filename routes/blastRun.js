@@ -75,7 +75,8 @@ router.post('/',function(req,res,next){
     //blastnの実行
     function blastRun(randomNum){
         return new Promise(function(resolve,reject){
-            const pathToBlastn = '/home/kagiana/bin/blastn' ;
+            const routePath = path.join(__dirname, '..','..','..','..'); //to kagiana
+            const pathToBlastn = path.join(routePath,'bin','blastn');
             const mQuery       = req.body.query;
             const outText      = `${randomNum}.txt`;
             const mDb          = req.body.db;
