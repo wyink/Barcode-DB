@@ -67,7 +67,7 @@ router.post('/',function(req,res,next){
                     reject(err);
                     return;
                 }
-                resolve(randomNum);       
+                resolve(`${randomNum}.fasta`);       
             })
         });
     };
@@ -75,35 +75,40 @@ router.post('/',function(req,res,next){
     //blastnの実行
     function blastRun(randomNum){
         return new Promise(function(resolve,reject){
-            const routePath = path.join(__dirname, '..','..','..','..'); //to kagiana
-            const pathToBlastn = path.join(routePath,'bin','blastn');
-            const mQuery       = req.body.query;
-            const outText      = `${randomNum}.txt`;
+            //const routePath = path.join(__dirname, '..','..','..','..'); //to kagiana
+            //const pathToBlastn = path.join(routePath,'bin','blastn');
+            const pathToBlastn = '/usr/local/ncbi/blast/bin/blastn' ;
+            const mQuery       = path.join(__dirname,'..',`${randomNum}.fasta`);
+            const outResult      = `${randomNum}_result.txt`;
             const mDb          = req.body.db;
             const mGene        = req.body.gene;
-            const blastdb      = `/blastdb/${mGene}/${mDb}/all` ;
+            const blastdb      = path.join(__dirname,'..',`public/resources/${mGene}/db/${mDb}/all`);
             const outfmtopt    = '"6 std qlen slen"' ;
             const maxTagSeq    = 100;
-
-            const cmd = `${pathToBlastn} -query ${mQuery} -db ${blastdb} -out ${outText} -outfmt ${outfmtopt} -max_target_seqs ${maxTagSeq}`;
-            let exec = child_process.exec(cmd,function(err,stdout,stderr){
-                if(err){
-                    reject(err);
-                    return;
-                }
-            })
-            resolve(outText);
+            
+            //kagianaの実行ファイルパスを追加
+            process.env.PATH = process.env.PATH + ':/usr/local/ncbi/blast/bin/blastn';
+            const cmd = `${pathToBlastn} -query ${mQuery} -db ${blastdb} -out ${outResult} -outfmt ${outfmtopt} -max_target_seqs ${maxTagSeq}`;
+            child_process.execSync(cmd);
+            //child_process.exec(cmd,(err,stdout,stderr)=> {
+            //    if(err){
+            //        console.log(stderr);
+            //        reject(err);
+            //        return;
+            //    }
+            //})
+            resolve(outResult);
         })
     };
 
-    function checkFileSize(out){
+    function checkFileSize(qryText){
         return new Promise(function(resolve,reject){
-            if(fs.statSync(out).size == 0){
+            if(fs.statSync(qryText).size == 0){
                 res.render('user_error')
                 next('Router');
             }else{
                 //ファイルサイズが０より大きい場合は次のミドルウェアへ
-                resolve(out);
+                resolve(qryText);
             }
         })
     }
@@ -156,7 +161,7 @@ router.post('/',function(req,res,next){
                     //svgで表示するための参照のアライメント開始位置（単位は割合）
                     let displayStart = new Promise(function(resolve,reject){
                         const prstart = (parseInt((Number(rstart)/1035)*100,10))+'%';
-                        perIdent_.PRSTRAT = prstart;
+                        resolve(prstart);
                     });
 
                     //svgで表示するための参照のアライメント終了位置（単位は割合）
@@ -167,11 +172,15 @@ router.post('/',function(req,res,next){
                         }else{
                             prend = `${prend_}%` ;
                         }
-                        perIdent_.PREND   = prend ;
+                        resolve(prend);
                     })
 
                     Promise.all([displayStart,displayEnd])
-                        .then(function(){
+                        .then(function([prstart,prend]){
+                            perIdent_ = {
+                                PRSTRAT : prstart,
+                                PREND   : prend
+                            }
                             console.log("AlignMentOk");
                         })
                         .catch(function(err){
@@ -179,7 +188,6 @@ router.post('/',function(req,res,next){
                         })
 
                 }else{
-
                     objArrayIn_.push({
                         URL:`https://www.ncbi.nlm.nih.gov/protein/${ref}`, // 検索結果に表示するURL
                         REF:ref       ,     // 参照配列(reference)のID
@@ -209,7 +217,7 @@ router.post('/',function(req,res,next){
             const mDb = req.body.db;
 
             const routePath = path.join(__dirname, '..');
-            const fpath = path.join(routePath ,'public','resources', mGene,`${mDb}.txt`);
+            const fpath = path.join(routePath ,'public','resources', mGene, 'info', `${mDb}.txt`);
             let hash = {}; //key:dbテキストのID val: Taxonomy情報（種・属・科・門）
 
             let rs = fs.createReadStream(fpath,encoding = 'utf-8');
@@ -294,8 +302,10 @@ router.post('/',function(req,res,next){
 
     async function showResultBlast(){
         const randomNum = await getFileName();
-        const outText   = await outQryToText(randomNum);
-        let resultObj = await readResultFile('bltest.fasta');
+        const qryText = await outQryToText(randomNum);
+        await checkFileSize(qryText);
+        const resultText = await blastRun(randomNum);
+        let resultObj = await readResultFile(resultText);
         return resultObj;
     }
 
@@ -315,16 +325,5 @@ router.post('/',function(req,res,next){
         });
 
 })
-
-        /*
-        .then(function(randomNum){
-            return blastRun(randomNum);
-        })
-        */
-        /*
-       .then(function(outText){
-        return checkFileSize(outText);
-        })
-        */
 
 module.exports = router;
