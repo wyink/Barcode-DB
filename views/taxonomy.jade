@@ -36,13 +36,13 @@ block main
           group
             p.opt
               input#box1(type='radio' name='cat' onchange="Listshow('first')" checked='checekd')
-              label.cate Family
+              label.cate family
             p.opt
               input#box2(type='radio' name='cat' onchange="Listshow('second')")
-              label.cate Genus
+              label.cate genus
             p.opt
               input#box3(type='radio' name='cat' onchange="Listshow('third')")
-              label.cate Species
+              label.cate species
         ul#ulaccordion.accordion.first
           li.alpha
             .wrap_header
@@ -203,7 +203,10 @@ block scripts
     //pass;
     }
     }
-    location.href = `./taxonomy/:${category}/:${alp}`;
+    if(alp == 'Other'){
+      alp ='x';
+    }
+    location.href = `./taxonomy/${category}/${alp}`;
     /*
     if(category == 'Family'){
     location.href=`./Tax_fam/${alp}`;
