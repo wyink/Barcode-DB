@@ -1,0 +1,42 @@
+
+extends ./layout
+
+block append_header
+    link(rel='stylesheet' href='stylesheets/All_tax_table.css')
+
+block headerContent
+    header
+      .header-inner
+        .Logo Barcode DB
+        .header-item
+          nav.nav1
+            ul
+              li
+                a(href='/')   Top   
+              li
+                a(href='/download') DownLoad
+              li
+                a(href='#') Taxonomy
+              li
+                a(href='/help')   Help  
+    .wrap_header
+      p.header #{params.ALP}
+
+block main
+    main
+      ul.accordion
+        li.alpha
+          .table_wrap
+            table.content
+              caption rbcL/#{params.CATEGORY}/#{params.ALP} 
+              caption
+              tbody
+                tr
+                  th= params.ALP
+                  th All included database
+                  th Curated DB
+                each item of params.ELEM
+                    tr
+                        th= item.NAME
+                        th= item.ALL
+                        th= item.CATEGORY 
