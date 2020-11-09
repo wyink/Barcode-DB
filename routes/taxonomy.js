@@ -62,7 +62,7 @@ router.get('/:category/:alp',function(req, res, next){
           })
 
         }else if(req.params.alp=='x'){
-          if(!(regex.exec(line))){
+          if(!(regex.exec(line[0]))){
             [name,allcount,curacount]=line.split('\t');
             retList.push({
               NAME:name,

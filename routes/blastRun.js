@@ -75,8 +75,6 @@ router.post('/',function(req,res,next){
     //blastnの実行
     function blastRun(randomNum){
         return new Promise(function(resolve,reject){
-            //const routePath = path.join(__dirname, '..','..','..','..'); //to kagiana
-            //const pathToBlastn = path.join(routePath,'bin','blastn');
             const pathToBlastn = '/usr/local/ncbi/blast/bin/blastn' ;
             const mQuery       = path.join(__dirname,'..',`${randomNum}.fasta`);
             const outResult      = `${randomNum}_result.txt`;
@@ -90,13 +88,6 @@ router.post('/',function(req,res,next){
             process.env.PATH = process.env.PATH + ':/usr/local/ncbi/blast/bin/blastn';
             const cmd = `${pathToBlastn} -query ${mQuery} -db ${blastdb} -out ${outResult} -outfmt ${outfmtopt} -max_target_seqs ${maxTagSeq}`;
             child_process.execSync(cmd);
-            //child_process.exec(cmd,(err,stdout,stderr)=> {
-            //    if(err){
-            //        console.log(stderr);
-            //        reject(err);
-            //        return;
-            //    }
-            //})
             resolve(outResult);
         })
     };
