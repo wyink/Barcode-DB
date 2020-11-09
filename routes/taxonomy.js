@@ -47,6 +47,7 @@ router.get('/:category/:alp',function(req, res, next){
         resolve(retObj);
       })
 
+      const regex = /^[A-Z]/;
       rl.on('line',function(line){
         let name='';
         let allcount=0;
@@ -61,9 +62,9 @@ router.get('/:category/:alp',function(req, res, next){
           })
 
         }else if(req.params.alp=='x'){
-          if($line[0] != /^[A-Z]/){
+          if(!(regex.exec(line))){
             [name,allcount,curacount]=line.split('\t');
-            letList.push({
+            retList.push({
               NAME:name,
               ALL:allcount,
               CURATED:curacount
