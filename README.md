@@ -1,4 +1,4 @@
-# barcodedb
+# Barcode-DB
 DNA barcoding is a method for species identification. 
 This application allows you to identify large amont of rbcL sequences more accurately by using our curated Blast DB. </br>
 more info 
