@@ -50,3 +50,5 @@ app.use(function(err, req, res, next) {
 
 module.exports = app;
 
+//the designated port to start the Express application
+app.listen(3000);
