@@ -19,7 +19,7 @@ $ node app.js
 3. 任意のブラウザにてlocalhost:3000にアクセスします。
 
 １～３の手順にて下記のページにてアクセスできるようになります。
-https://github.com/wyink/Barcode-DB/assets/69898489/1850fa15-fdcd-42e7-a557-1588a7e31c1a
+<img src= "https://github.com/wyink/Barcode-DB/assets/69898489/1850fa15-fdcd-42e7-a557-1588a7e31c1a">
 
 4. フォームにお持ちの調査したい植物の塩基配列を入力し、実行ボタンを押下することで可能性の高い植物の一覧が表示されます。
 
