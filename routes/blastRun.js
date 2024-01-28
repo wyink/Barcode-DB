@@ -3,10 +3,10 @@ const readline = require('readline');
 const child_process = require('child_process');
 const fs = require('fs');
 const path = require('path');
-var router = express.Router();
+var blastRunRouter = express.Router();
 
 //最初のミドルウェア : 引数の確認
-router.post('/',function(req,res,next){
+blastRunRouter.post('/',function(req,res,next){
 
     const mSampleGene = req.body.sampleGene;
     const mGene       = req.body.gene;
@@ -50,7 +50,7 @@ router.post('/',function(req,res,next){
 })
 
 //2番目のミドルウェア: Blastの実行
-router.post('/',function(req,res,next){
+blastRunRouter.post('/',function(req,res,next){
     //blastで利用する入出力ファイル名の決定(randomに生成)
     function getFileName(){
         return new Promise(function(resolve,reject){
@@ -73,9 +73,10 @@ router.post('/',function(req,res,next){
     };
 
     //blastnの実行
+    //Refer to https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/
     function blastRun(randomNum){
         return new Promise(function(resolve,reject){
-            const pathToBlastn = '/usr/local/ncbi/blast/bin/blastn' ;
+            //const pathToBlastn = 'public/resources/blastapp/~exe' ;
             const mQuery       = path.join(__dirname,'..',`${randomNum}.fasta`);
             const outResult      = `${randomNum}_result.txt`;
             const mDb          = req.body.db;
@@ -84,9 +85,9 @@ router.post('/',function(req,res,next){
             const outfmtopt    = '"6 std qlen slen"' ;
             const maxTagSeq    = 100;
             
-            //kagianaの実行ファイルパスを追加
-            process.env.PATH = process.env.PATH + ':/usr/local/ncbi/blast/bin/blastn';
-            const cmd = `${pathToBlastn} -query ${mQuery} -db ${blastdb} -out ${outResult} -outfmt ${outfmtopt} -max_target_seqs ${maxTagSeq}`;
+            //Blast実行
+            process.env.PATH = process.env.PATH + 'public';
+            const cmd = `blastn -query ${mQuery} -db ${blastdb} -out ${outResult} -outfmt ${outfmtopt} -max_target_seqs ${maxTagSeq}`;
             child_process.execSync(cmd);
             resolve(outResult);
         })
@@ -235,6 +236,9 @@ router.post('/',function(req,res,next){
 
     function makeRelation(resultObj,hash){
         return new Promise(function(resolve,reject){
+            if(resultObj==null || resultObj==""){
+                return reject;
+            }
             //引数のresultObjにプロパティを追加して返却する
             /*
             resultObj = {
@@ -296,7 +300,11 @@ router.post('/',function(req,res,next){
         const qryText = await outQryToText(randomNum);
         await checkFileSize(qryText);
         const resultText = await blastRun(randomNum);
-        let resultObj = await readResultFile(resultText);
+        let resultObj=null;
+        if(resultText!="" && resultText!=null){
+            resultObj = await readResultFile(resultText);
+        }
+        
         return resultObj;
     }
 
@@ -312,9 +320,13 @@ router.post('/',function(req,res,next){
             }); 
         })
         .catch(function(err){
-            res.send(err.toString);
+            console.log("323ofblastrun");
+            res.locals.message = err.message;
+            res.locals.error = req.app.get('env') === 'development' ? err : {};
+            res.status(err.status || 500);
+            res.render("user_error");
         });
 
 })
 
-module.exports = router;
+module.exports = blastRunRouter;
