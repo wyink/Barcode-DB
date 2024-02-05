@@ -13,6 +13,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+/*get or post method will be implemented in the contoroller. */
 Route::get('/', function () {
     return view('index');
+});
+
+Route::get('download', function () {
+    return view('download');
+});
+Route::get('help', function () {
+    return view('help');
+});
+Route::get('taxonomy', function () {
+    return view('taxonomy');
 });
