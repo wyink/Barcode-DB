@@ -32,4 +32,14 @@ class blastrun extends Controller
         $randomNum = rand(0,10000);
         return $randomNum;
     }
+
+    /*
+        Write user input sequence to the local file 
+        File name is randomly generated.
+    */
+    static function outQryToText(int $randomNum){
+        $file = $randomNum+'.txt';
+        $query = $_POST['query'];//get sequences user inputs
+        file_put_contents($file,$query,LOCK_EX);
+    }
 }
