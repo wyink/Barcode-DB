@@ -131,4 +131,34 @@ class blastrun extends Controller
             objArrayIn=>objArrayIn_
         ];
     }
+
+    static function readCatFile(){
+        $gene = $_POST['gene'] ;
+        $db = $_POST['db'];
+
+        $routePath = pp_Path()+'..';
+        $fpath = $routePath + "public/resources/{$gene}/info/{$db}.txt";
+        $hash = []; //key:dbテキストのID val: Taxonomy情報（種・属・科・門）
+
+
+        $resultFile = fopen($fpath,"r");
+        while($line = fgets($resultFile)){
+            // AUT83098.1	440359	sp|Campanula patula ge|Campanula fm|Campanulaceae ph|Streptophyta
+            preg_match_all(
+                '/^([A-Z]+\d+\.\d)\t(\d+)\tsp\|(.+) ge\|(.+) fm\|(.+) ph\|(.+)$/',
+                $line,
+                $matches,
+                PREG_PATTERN_ORDER
+            );
+            $ref    =$matches[1];
+            $taxid  =$matches[2];
+            $sp     =$matches[3];
+            $ge     =$matches[4];
+            $fm     =$matches[5];
+            $ph     =$matches[6];
+            $hash[$ref] = [$taxid,$sp,$ge,$fm,$ph];
+        }
+        return $hash;
+    }
+
 }
