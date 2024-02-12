@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BlastRunController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,12 +19,14 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('download', function () {
+Route::post('/blastRun',[BlastRunController::class,'index']);
+
+Route::get('/download', function () {
     return view('download');
 });
-Route::get('help', function () {
+Route::get('/help', function () {
     return view('help');
 });
-Route::get('taxonomy', function () {
+Route::get('/taxonomy', function () {
     return view('taxonomy');
 });
