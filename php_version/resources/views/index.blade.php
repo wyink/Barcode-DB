@@ -81,7 +81,9 @@
       <div class="data_wrap">
         <div class="op_gene">Select the gene you have.</div>
         <group class="f_radio">
-          <div class="f_option"><input id="f1_a" type="radio" name="gene" checked="checked"
+          <div class="f_option">
+            @csrf
+            <input id="f1_a" type="radio" name="gene" checked="checked"
               onchange="Radiochange();" class="fra"><label class="fla">rbcL</label></div>
           <div class="f_option"><input id="f1_b" type="radio" name="gene" onchange="Radiochange();"
               class="fra"><label class="fla">matK</label></div>
@@ -101,6 +103,7 @@
       <div class="sewrap"><label for="Query" class="Query_label"><span class="num">2.</span> Enter a sequence
           in fasta fomat</label>
         <div class="thrbtn">
+          @csrf
           <div><input type="radio" name="sampleGene" value="0" onclick="sample(1)">clear the text</div>
           <div><input type="radio" name="sampleGene" value="1" checked="checked" onclick="sample(2)">rbcL
             sample</div>
