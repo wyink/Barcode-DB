@@ -3,6 +3,8 @@
 /public/build
 /public/hot
 /public/storage
+/public/resources/temp
+/public/resources/blastapp
 /storage/*.key
 /vendor
 .env
