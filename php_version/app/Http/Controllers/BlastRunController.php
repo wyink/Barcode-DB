@@ -270,9 +270,9 @@ class BlastRunController extends Controller
                 ]
             )
         */
-        $TMP = $resultObj['objArrayIn'];
-        $TMP = $resultObj['objArrayIn'][0];
-        $TMP = $resultObj['objArrayIn'][0]['REF'];
+
+
+
         $resultObj['topRef']['TAXID'] = $refTaxArray[$resultObj['objArrayIn'][0]['REF']][0];
         $resultObj['topRef']['SPECIES'] = $refTaxArray[$resultObj['objArrayIn'][0]['REF']][1];
         $resultObj['topRef']['GENUS']   = $refTaxArray[$resultObj['objArrayIn'][0]['REF']][2];
