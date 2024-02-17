@@ -12,9 +12,9 @@
               <nav class="nav1">
                   <ul>
                       <li><a href="/"> Top </a></li>
-                      <li id="now"><a href="#">DownLoad</a></li>
+                      <li><a href="/download">DownLoad</a></li>
                       <li><a href="/taxonomy">Taxonomy</a></li>
-                      <li><a href="/help"> Help </a></li>
+                      <li id="now"><a href='#'> Help </a></li>
                   </ul>
               </nav>
           </div>
