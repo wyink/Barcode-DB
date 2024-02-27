@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BlastRunController;
 use App\Http\Controllers\TaxonomyController;
+use App\Http\Middleware\BlastRunMiddleware;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,7 +21,8 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::post('/blastRun',[BlastRunController::class,'index']);
+Route::post('/blastRun',[BlastRunController::class,'index'])
+        ->middleware(BlastRunMiddleware::class);
 
 Route::get('/download', function () {
     return view('download');
