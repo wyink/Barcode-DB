@@ -1,11 +1,19 @@
 <?php
+//read curated.txt
+$infile1 = fopen("curated.txt","r") or die("can't open the file");
+$hash;
+while($line = fgets($infile1)){
+    $line = trim($line);
+    preg_match_all("/^(.+)\t(\d+)\tsp\|(.+) ge\|(.+) fm\|(.+) ph\|(.+)$/",$line,$m,PREG_PATTERN_ORDER);
+    $hash[$m[1][0]]=1;
+}
 
 $infile = fopen("All.txt","r") or die("");
-$outfile = fopen("category_rbcL_insert.sql","w") or die("");
+$outfile = fopen("category_rbcL_insert2.sql","w") or die("");
 //QBB10235.1	435677	sp|Schoenoplectus confusus ge|Schoenoplectus fm|Cyperaceae ph|Streptophyta
 //INSERT INTO category_rbcL(geneID,taxID,species,genus,family,phylum) VALUES('CAR62526.1',554962,'Campylanthus spinosus','Campylanthus','Plantaginaceae','Streptophyta');
 
-$sqlSyntax = "INSERT INTO category_rbcL(geneID,taxID,species,genus,family,phylum) VALUES";
+$sqlSyntax = "INSERT INTO category_rbcL(geneID,taxID,species,genus,family,phylum,isCurated) VALUES";
 while ($line = fgets($infile)) {
     $line = trim($line);
     preg_match_all("/^(.+)\t(\d+)\tsp\|(.+) ge\|(.+) fm\|(.+) ph\|(.+)$/",$line,$m,PREG_PATTERN_ORDER);
@@ -18,9 +26,15 @@ while ($line = fgets($infile)) {
         $needChecked[$i] = str_replace("'","''",$needChecked[$i]);
     }
     
+    if(array_key_exists($m[1][0],$hash)){
+        $isCurated = 1;
+    }else{
+        $isCurated = 0;
+    }
+
     fwrite(
         $outfile,
-        "{$sqlSyntax}('{$m[1][0]}','{$m[2][0]}','{$needChecked[0]}','{$needChecked[1]}','{$needChecked[2]}','{$needChecked[3]}')\n"
+        "{$sqlSyntax}('{$m[1][0]}','{$m[2][0]}','{$needChecked[0]}','{$needChecked[1]}','{$needChecked[2]}','{$needChecked[3]}',{$isCurated})\n"
     );
     
 }
