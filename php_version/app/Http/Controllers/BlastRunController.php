@@ -215,11 +215,19 @@ class BlastRunController extends Controller
         */
         $items='';
         $isCurated=0;
-        if($db=='curated'){$isCurated=1;}
         if($gene=='rbcL'){
-            $items = DB::table('category_rbcL')->where('isCurated',$isCurated)->get();
+            if($db=='curated'){
+                $items = DB::table('category_rbcL')->where('isCurated',$isCurated)->get();
+            }else{
+                $items = DB::table('category_rbcL')->get();
+            }
         }else{//matK
-            $items = DB::table('category_matK')->where('isCurated',$isCurated)->get();
+            if($db=='curated'){
+                $items = DB::table('category_matK')->where('isCurated',$isCurated)->get();
+            }else{
+                $items = DB::table('category_matK')->get();
+            }
+            
         }
         
         foreach($items as $item){
@@ -290,8 +298,12 @@ class BlastRunController extends Controller
             )
         */
 
+        $tmp = $resultObj['objArrayIn'];
 
-
+        $tmp = $resultObj['objArrayIn'][0];
+        $tmp = $resultObj['objArrayIn'][0]['REF'];
+        $t = $refTaxArray[$tmp];
+        $t = $refTaxArray[$tmp][0];
         $resultObj['topRef']['TAXID'] = $refTaxArray[$resultObj['objArrayIn'][0]['REF']][0];
         $resultObj['topRef']['SPECIES'] = $refTaxArray[$resultObj['objArrayIn'][0]['REF']][1];
         $resultObj['topRef']['GENUS']   = $refTaxArray[$resultObj['objArrayIn'][0]['REF']][2];
