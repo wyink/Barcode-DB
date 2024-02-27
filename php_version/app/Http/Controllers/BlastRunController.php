@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB ;
 
 class BlastRunController extends Controller
 {
@@ -189,30 +189,49 @@ class BlastRunController extends Controller
     private static function readCatFile():?array{
         $gene = $_POST['gene'] ;
         $db = $_POST['db'];
-
-        $basePath = base_path();
-        $prePath = str_replace("php_version","public",$basePath);
-        $fpath = "{$prePath}/resources/{$gene}/info/{$db}.txt";
         $refTaxArray = null; 
 
-
-        $resultFile = fopen($fpath,"r");
-        while($line = fgets($resultFile)){
-            // AUT83098.1	440359	sp|Campanula patula ge|Campanula fm|Campanulaceae ph|Streptophyta
-            preg_match_all(
-                '/^([A-Z]+\d+\.\d)\t(\d+)\tsp\|(.+) ge\|(.+) fm\|(.+) ph\|(.+)$/',
-                $line,
-                $matches,
-                PREG_PATTERN_ORDER
-            );
-            $ref    =$matches[1][0];
-            $taxid  =$matches[2][0];
-            $sp     =$matches[3][0];
-            $ge     =$matches[4][0];
-            $fm     =$matches[5][0];
-            $ph     =$matches[6][0];
-            $refTaxArray[$ref] = array($taxid,$sp,$ge,$fm,$ph);
+        /*Resource has changed from text to db.
+            $basePath = base_path();
+            $prePath = str_replace("php_version","public",$basePath);
+            $fpath = "{$prePath}/resources/{$gene}/info/{$db}.txt";
+            $resultFile = fopen($fpath,"r");
+            while($line = fgets($resultFile)){
+                // AUT83098.1	440359	sp|Campanula patula ge|Campanula fm|Campanulaceae ph|Streptophyta
+                preg_match_all(
+                    '/^([A-Z]+\d+\.\d)\t(\d+)\tsp\|(.+) ge\|(.+) fm\|(.+) ph\|(.+)$/',
+                    $line,
+                    $matches,
+                    PREG_PATTERN_ORDER
+                );
+                $ref    =$matches[1][0];
+                $taxid  =$matches[2][0];
+                $sp     =$matches[3][0];
+                $ge     =$matches[4][0];
+                $fm     =$matches[5][0];
+                $ph     =$matches[6][0];
+                $refTaxArray[$ref] = array($taxid,$sp,$ge,$fm,$ph);
+            }
+        */
+        $items='';
+        $isCurated=0;
+        if($db=='curated'){$isCurated=1;}
+        if($gene=='rbcL'){
+            $items = DB::table('category_rbcL')->where('isCurated',$isCurated)->get();
+        }else{//matK
+            $items = DB::table('category_matK')->where('isCurated',$isCurated)->get();
         }
+        
+        foreach($items as $item){
+            $refTaxArray[$item->geneID] = array(
+                $item->taxID,
+                $item->species,
+                $item->genus,
+                $item->family,
+                $item->phylum
+            );    
+        }
+
         return $refTaxArray;
     }
 
