@@ -145,8 +145,8 @@ form{
 	justify-content: flex-start;
 }
 .thrbtn div:nth-child(2),
-.thrbtn div:nth-child(1),
-.thrbtn div:nth-child(3) {
+.thrbtn div:nth-child(3),
+.thrbtn div:nth-child(4) {
 	padding: 5px;
 	font-weight: bold;
 	border: 1.5px solid #1d5667;
@@ -154,27 +154,28 @@ form{
 	flex-grow: 1;
 	text-align: center;
 }
-.thrbtn div:nth-child(1) input,
 .thrbtn div:nth-child(2) input,
-.thrbtn div:nth-child(3) input {
+.thrbtn div:nth-child(3) input,
+.thrbtn div:nth-child(4) input {
 	position: relative;
 	top: 3px;
 	left: -7px;
 	width: 17px;
 }
-.thrbtn div:nth-child(3){
-	background-color:white;
-	color:#367a8e;
-}
-.thrbtn div:nth-child(1){
+
+.thrbtn div:nth-child(2){
 	background-color:white;
 	border-right:none;
 	color:#367a8e;
 }
-.thrbtn div:nth-child(2){
+.thrbtn div:nth-child(3){
 	background-color:#367a8e;
 	border-right:none;
 	color:white;
+}
+.thrbtn div:nth-child(4){
+	background-color:white;
+	color:#367a8e;
 }
 
 #sbm:hover{
