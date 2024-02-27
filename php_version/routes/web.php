@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BlastRunController;
+use App\Http\Controllers\TaxonomyController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,3 +31,5 @@ Route::get('/help', function () {
 Route::get('/taxonomy', function () {
     return view('taxonomy');
 });
+
+Route::get('/taxonomy/{category}/{alp}',[TaxonomyController::class,'index']);
