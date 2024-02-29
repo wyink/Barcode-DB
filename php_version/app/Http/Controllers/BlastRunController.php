@@ -191,38 +191,18 @@ class BlastRunController extends Controller
         $db = $_POST['db'];
         $refTaxArray = null; 
 
-        /*Resource has changed from text to db.
-            $basePath = base_path();
-            $prePath = str_replace("php_version","public",$basePath);
-            $fpath = "{$prePath}/resources/{$gene}/info/{$db}.txt";
-            $resultFile = fopen($fpath,"r");
-            while($line = fgets($resultFile)){
-                // AUT83098.1	440359	sp|Campanula patula ge|Campanula fm|Campanulaceae ph|Streptophyta
-                preg_match_all(
-                    '/^([A-Z]+\d+\.\d)\t(\d+)\tsp\|(.+) ge\|(.+) fm\|(.+) ph\|(.+)$/',
-                    $line,
-                    $matches,
-                    PREG_PATTERN_ORDER
-                );
-                $ref    =$matches[1][0];
-                $taxid  =$matches[2][0];
-                $sp     =$matches[3][0];
-                $ge     =$matches[4][0];
-                $fm     =$matches[5][0];
-                $ph     =$matches[6][0];
-                $refTaxArray[$ref] = array($taxid,$sp,$ge,$fm,$ph);
-            }
-        */
         $items='';
         $isCurated=0;
         if($gene=='rbcL'){
             if($db=='curated'){
+                $isCurated=1;
                 $items = DB::table('category_rbcL')->where('isCurated',$isCurated)->get();
             }else{
                 $items = DB::table('category_rbcL')->get();
             }
         }else{//matK
             if($db=='curated'){
+                $isCurated=1;
                 $items = DB::table('category_matK')->where('isCurated',$isCurated)->get();
             }else{
                 $items = DB::table('category_matK')->get();
@@ -298,12 +278,7 @@ class BlastRunController extends Controller
             )
         */
 
-        $tmp = $resultObj['objArrayIn'];
 
-        $tmp = $resultObj['objArrayIn'][0];
-        $tmp = $resultObj['objArrayIn'][0]['REF'];
-        $t = $refTaxArray[$tmp];
-        $t = $refTaxArray[$tmp][0];
         $resultObj['topRef']['TAXID'] = $refTaxArray[$resultObj['objArrayIn'][0]['REF']][0];
         $resultObj['topRef']['SPECIES'] = $refTaxArray[$resultObj['objArrayIn'][0]['REF']][1];
         $resultObj['topRef']['GENUS']   = $refTaxArray[$resultObj['objArrayIn'][0]['REF']][2];
