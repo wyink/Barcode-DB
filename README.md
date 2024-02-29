@@ -10,15 +10,34 @@ BLASTで検索に利用するデータベースはこちらで提供している
 </br>
 
 利用方法：
-1. 下記URLよりBLASTアプリケーションをインストールします。
+1. 下記URLよりBLASTアプリケーションをインストール
 https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/
+動作確認済：ncbi-blast-2.11.0
 
-2. 本アプリケーションを起動します </br>
-`$ node app.js`
+2.DB準備等（Laravelのみ）
+　(1)SQLサーバー上でphp_version/database/preworkの6つのSQLを下記の順番に実行
+   ・create_table.sql
+   ・残りの5つのSQLファイル（各テーブルへのデータ挿入）
 
-3. 任意のブラウザにてlocalhost:3000にアクセスします。（下記ページが表示されます）</br>
+　(2)下記二つのファイルの設定を利用するデータベース環境に合わせて変更
+    /.env (14~16行目/記載はsqlsrv)
+    /config/database.php(36行目以降ののconnection)
 
-4. フォームに調査したい植物の塩基配列を入力し、実行ボタンを押下することで可能性の高い植物の一覧がを取得できます。
+　(3)/public/resources/download/gz_fastaおよびgz_taxidList直下の全ファイルを下記に移動
+　　/php_version/storage/app/public/*
+
+2. 本アプリケーションを起動 </br>
+　(1)Node.jsの場合
+　　　`node app.js`
+　(2)Laravelの場合
+　　　(ⅰ)php_versionディレクトリへ移動
+　　　(ⅱ)`php artisan serve`
+
+
+3. 任意のブラウザにてlocalhost:3000(node.js)/8000(Laravel)にアクセス（下記ページが表示されます）</br>
+
+4. フォームに調査したい植物の塩基配列を入力し、実行ボタンを押下
+　 入力した塩基配列から可能性の高い植物の一覧を表示します。
 
 </br>
 </br>

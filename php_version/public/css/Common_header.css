@@ -1,0 +1,100 @@
+body{
+    font-size: 100%;
+    margin: 0;
+    overflow-y:scroll;
+    display:block;
+    /* background-color:rgba(197, 239, 227, 0.41); */
+    background: linear-gradient(112.2540256895461deg, rgba(1, 96, 186,1) 4.9%,rgba(0, 0, 0,1) 97.8%);
+}
+header{
+	z-index:2;
+	position:fixed;
+	top:0;
+    width:100%;
+    height:82px;
+    display:block;
+    background-color:white;
+    /* background: linear-gradient(112.2540256895461deg, rgba(1, 96, 186,1) 4.9%,rgba(0, 0, 0,1) 97.8%); */
+    border-bottom: 2px solid #dcdada;
+}
+.header-inner{
+    max-width:1280px;
+    /* padding: 12px 12px 0px 12px; */
+    background-color: #ffffff;
+    margin:auto;
+    display:flex;
+    align-items: center;
+    justify-content: flex-start;
+    -webkit-justify-conten: flex-start;
+}
+@media (min-width: 768px){
+.header-item{
+    display:block;
+    flex-grow: 1;
+    padding-left: 51px;
+}
+}
+li a{
+    display:inline-block;
+    box-sizing: border-box;
+    padding: 0px 7px;
+    width: 100%;
+    height: 100%;
+    text-decoration:none;
+    line-height: 2.2em;
+    /* line-height: 5px; */
+    font-weight: bold;
+    color: #367a8e;
+}
+header .nav1 li{
+    /* font-size: 1.5em; */
+    box-sizing: border-box;
+    font-size: 21px;
+    margin: 0 3px;
+    display:inline-block;
+    list-style:none;
+    width: 25%;
+    height: auto;
+    text-align:center;
+}
+.nav1 li:not(#id) a:hover{
+    background-color:skyblue;
+    border-radius:5px;
+    color:white;
+}
+.Logo{
+   font-size: 54px;
+   font-weight:bold;
+   margin-left: 20px;
+   /* margin: 0 0 10px 0; */
+   /* padding: 0px 20px; */
+   /* color:rgb(63, 138, 63); */
+   /* background-color: #518c63b3; */
+   /* border-radius: 10px; */
+   color: #367a8e;
+   /* font-style: italic; */
+   /* flex-grow: 1; */
+}
+header::after{
+    content:"";
+    display:block;
+    clear:both;
+}
+ul{
+    padding: 0;
+    display: flex;
+    /* margin: auto; */
+    /* height: 60px; */
+}
+#now a{
+    border-radius:4px;
+    /* background-image: linear-gradient(45deg, #FFC107 0%, #ff8b5f 100%); */
+    /* color: white; */
+    background-color: #367a8e;
+}
+#now a{
+    color:white;
+}
+.nav1{
+    width:100%;
+}
