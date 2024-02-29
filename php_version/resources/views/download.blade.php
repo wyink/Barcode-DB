@@ -12,9 +12,9 @@
               <nav class="nav1">
                   <ul>
                       <li><a href="/"> Top </a></li>
-                      <li><a href="/download">DownLoad</a></li>
+                      <li id="now"><a href='#'>DownLoad</a></li>
                       <li><a href="/taxonomy">Taxonomy</a></li>
-                      <li id="now"><a href='#'> Help </a></li>
+                      <li><a href='/help'> Help </a></li>
                   </ul>
               </nav>
           </div>
@@ -41,31 +41,28 @@
                               <tr>
                                   <th>ALL (redundant)</th>
                                   <td>167,033</td>
-                                  <td class="DL_fasta"><a
-                                          href="../resources/downLoad/gz_fasta/ALL_Viridiplantae.zip">FASTA</a></td>
-                                  <td class="DL_tax"><a
-                                          href="../resources/downLoad/gz_taxidList/All_Viridiplantae_taxidList.zip">Taxonomy
-                                          List</a></td>
+                                  <td class="DL_fasta">
+                                    <a href="{{ route('download.index','ALL_Viridiplantae.zip') }}">FASTA</a>
+                                  <td class="DL_tax">
+                                    <a href="{{ route('download.index','All_Viridiplantae_taxidList.zip') }}">TaxonomyList</a>
                                   <td>2019/9/16</td>
                               </tr>
                               <tr>
                                   <th>Curated DB (<span> 5 </span>sites)</th>
                                   <td>33,602</td>
-                                  <td class="DL_fasta"><a
-                                          href="../resources/downLoad/gz_fasta/Viridiplantae_5sites.zip">FASTA</a></td>
-                                  <td class="DL_tax"><a
-                                          href="../resources/downLoad/gz_taxidList/Viridiplantae_5sites_taxidList.zip">Taxonomy
-                                          List</a></td>
+                                  <td class="DL_fasta">
+                                    <a href="{{ route('download.index','Viridiplantae_5sites.zip"') }}">FASTA</a>
+                                  <td class="DL_tax">
+                                    <a href="{{ route('download.index','Viridiplantae_5sites_taxidList.zip') }}">TaxonomyList</a>
                                   <td>2019/9/16</td>
                               </tr>
                               <tr>
                                   <th>Curated DB (<span> 3 </span>sites)</th>
                                   <td>12,785</td>
-                                  <td class="DL_fasta"><a
-                                          href="../resources/downLoad/gz_fasta/Viridiplantae_3sites.zip">FASTA</a></td>
-                                  <td class="DL_tax"><a
-                                          href="../resources/downLoad/gz_taxidList/Viridiplantae_3sites_taxidList.zip">Taxonomy
-                                          List</a></td>
+                                  <td class="DL_fasta">
+                                    <a href="{{ route('download.index','Viridiplantae_3sites.zip') }}">FASTA</a>
+                                  <td class="DL_tax">
+                                    <a href="{{ route('download.index','Viridiplantae_3sites_taxidList.zip') }}">TaxonomyList</a>
                                   <td>2019/9/16</td>
                               </tr>
                           </tbody>
@@ -85,31 +82,29 @@
                               <tr>
                                   <th>ALL (redundant)</th>
                                   <td>23,008</td>
-                                  <td class="DL_fasta"><a href="../resources/downLoad/gz_fasta/ALL_Other.zip">FASTA</a>
+                                  <td class="DL_fasta">
+                                    <a href="{{ route('download.index','All_Other.zip') }}">FASTA</a>
                                   </td>
-                                  <td class="DL_tax"><a
-                                          href="../resources/downLoad/gz_taxidList/All_Other_taxidList.zip">Taxonomy
-                                          List</a></td>
+                                  <td class="DL_tax">
+                                    <a href="{{ route('download.index','All_Other_taxidList.zip') }}">TaxonomyList</a></td>
                                   <td>2019/9/16</td>
                               </tr>
                               <tr>
                                   <th>Curated DB (<span> 5 </span>sites)</th>
                                   <td>6,769</td>
-                                  <td class="DL_fasta"><a
-                                          href="../resources/downLoad/gz_fasta/Other_5sites.zip">FASTA</a></td>
-                                  <td class="DL_tax"><a
-                                          href="../resources/downLoad/gz_taxidList/Other_5sites_taxidList.zip">Taxonomy
-                                          List</a></td>
+                                  <td class="DL_fasta">
+                                    <a href="{{ route('download.index','Other_5sites.zip') }}">FASTA</a></td>
+                                  <td class="DL_tax">
+                                    <a href="{{ route('download.index','Other_5sites_taxidList.zip') }}">TaxonomyList</a></td>
                                   <td>2019/9/16</td>
                               </tr>
                               <tr>
                                   <th>Curated DB (<span> 3 </span>sites)</th>
                                   <td>3,737</td>
-                                  <td class="DL_fasta"><a
-                                          href="../resources/downLoad/gz_fasta/Other_3sites.zip">FASTA</a></td>
-                                  <td class="DL_tax"><a
-                                          href="../resources/downLoad/gz_taxidList/Other_3sites_taxidList.zip">Taxonomy
-                                          List</a></td>
+                                  <td class="DL_fasta">
+                                    <a href="{{ route('download.index','Other_3sites.zip') }}">FASTA</a></td>
+                                  <td class="DL_tax">
+                                    <a href="{{ route('download.index','Other_3sites_taxidList.zip') }}">TaxonomyList</a></td>
                                   <td>2019/9/16</td>
                               </tr>
                           </tbody>

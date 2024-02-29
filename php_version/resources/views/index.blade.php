@@ -100,10 +100,10 @@
       </div>
     </form>
     <form id="cgi" action="/blastRun" method="post" onsubmit="return check()">
+      @csrf
       <div class="sewrap"><label for="Query" class="Query_label"><span class="num">2.</span> Enter a sequence
           in fasta fomat</label>
         <div class="thrbtn">
-          @csrf
           <div><input type="radio" name="sampleGene" value="0" onclick="sample(1)">clear the text</div>
           <div><input type="radio" name="sampleGene" value="1" checked="checked" onclick="sample(2)">rbcL
             sample</div>
