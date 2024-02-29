@@ -5,7 +5,12 @@ use Illuminate\Support\Facades\DB ;
 
 class TaxonomyController extends Controller
 {
-
+    /**
+     * Get the specific data that matches users request(category,first alphabet) from SQLServer
+     * @param string $category :use can select 3 options(species,genus,family)
+     * @param string $alp :the first alphabet of each category user selected'
+     * @return mixed
+     */
     public function index($category,$alp){
         $items = '';
         if($category=='species'){
@@ -15,7 +20,7 @@ class TaxonomyController extends Controller
         }else{
             $items = DB::table('family_count')->where('familyName','like',$alp.'%')->get();
         }
-
+        
         return view('taxonomyCat',['items' => $items,'category'=> $category,'alp'=> $alp]);
     }
 

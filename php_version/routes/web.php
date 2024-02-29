@@ -3,7 +3,6 @@
 use App\Http\Controllers\BlastRunController;
 use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\TaxonomyController;
-use App\Http\Middleware\BlastRunMiddleware;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,6 +34,7 @@ Route::get('/download/{fileName}',[DownloadController::class,'index'])
 Route::get('/help', function () {
     return view('help');
 });
+
 Route::get('/taxonomy', function () {
     return view('taxonomy');
 });
